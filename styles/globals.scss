@@ -1,0 +1,206 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "PromptRegular", sans-serif;
+    // overflow: hidden;
+    // animation: body-overflow 0s forwards;
+    // animation-delay: 1.9s;
+    // background-color: #000;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+@font-face {
+    font-family: "PromptRegular";
+    src: url("/font/Prompt-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "PromptMedium";
+    src: url("/font/Prompt-Medium.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+p {
+    margin-bottom: 0;
+}
+@mixin reset-input {
+    background-color: unset;
+    border: unset;
+    outline: unset;
+}
+@mixin reset-btn {
+    background-color: unset;
+    border: unset;
+    outline: unset;
+}
+@mixin highlighting {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+img{
+    max-width: 100%;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0;
+}
+.bg-site{  
+    background-color: #F0F0F0;
+}
+
+.icon_home{
+    background-image: url(../public/img/icon/Home.png);
+}
+.icon_shop{
+    background-image: url(../public/img/icon/Shop.png);
+}
+.icon_promo{
+    background-image: url(../public/img/icon/Promo.png);
+}
+.icon_team{
+    background-image: url(../public/img/icon/Team.png);
+}
+.icon_member{
+    background-image: url(../public/img/icon/Member.png);
+}
+.icon_tag{
+    background-image: url(../public/img/icon/Tag.png);
+}
+.icon_contact{
+    background-image: url(../public/img/icon/Contact.png);
+}
+.icon_arrow_up{
+    background-image: url(../public/img/icon/arrow_up.png);
+}
+.icon_arrow_up-2{
+    background-image: url(../public/img/icon/arrow_up-2.png);
+}
+.icon_arrowCircle_up{
+    background-image: url(../public/img/icon/arrowCircle_up.png);
+}
+.icon_arrow_right{
+    background-image: url(../public/img/icon/arrow_right.png);
+}
+.icon_chart{
+    background-image: url(../public/img/icon/chart.png);
+}
+.icon_chart{
+    background-image: url(../public/img/icon/chart.png);
+}
+.icon_eyes{
+    background-image: url(../public/img/icon/eyes.png);
+}
+
+.icon_email{
+    background-image: url(../public/img/icon/Email.png);
+}
+.icon_phone{
+    background-image: url(../public/img/icon/Phone.png);
+}
+.icon_search{
+    background-image: url(../public/img/icon/Search.png);
+}
+.icon_close{
+    background-image: url(../public/img/icon/close.png);
+}
+.icon_back{
+    background-image: url(../public/img/icon/back.png);
+}
+.icon_plus{
+    background-image: url(../public/img/icon/plus.png);
+}
+.icon_minus{
+    background-image: url(../public/img/icon/minus.png);
+}
+
+
+
+
+.thaiLang{
+    background-image: url(../public/img/icon/thaiLang.png);
+}
+.txt-md{
+    font-family: "PromptMedium" !important;
+}
+
+.ml-0{
+    margin-left: 0 !important;
+}
+.contentArea{
+    &.hidden{
+        // height: 100vh;
+        // overflow: hidden;
+    }
+}
+
+header .navBar .active{
+    background-color: #000;
+    color: #fff;
+}
+.AccordionCustom{
+    padding: 0 15px;
+    .accordion-item{
+        border-left: unset;
+        border-right: unset;
+        border-radius: unset;
+    }
+    .accordion-body{
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .accordion-button{
+        background-color: unset;
+        outline: unset;
+        box-shadow: unset;
+        color: #000;
+        padding-left: 0;
+        padding-right: 0;
+        span{
+            font-size: 12px;
+            color: #888;
+        }
+    }
+    .accordion-button:not(.collapsed)::after {
+        filter: brightness(0);
+    }
+    .optionItem{
+        .form-check-label{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}
+.modelUp{
+    position: absolute;
+    z-index: 99999;
+}
