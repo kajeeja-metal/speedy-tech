@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "cross-env NEXT_PUBLIC_API=https://d-api.speedy-tech.co next dev ",
+    "build": "cross-env NEXT_PUBLIC_API=https://d-api.speedy-tech.co next build",
+    "start": "cross-env NEXT_PUBLIC_API=https://d-api.speedy-tech.co next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -19,7 +19,17 @@
     "react-bootstrap": "^2.7.0",
     "react-dom": "18.2.0",
     "react-scroll": "^1.8.9",
-    "recharts": "^2.3.2"
+    "recharts": "^2.3.2",
+    "axios": "^1.2.1",
+    "cross-env": "^7.0.3",
+    "js-cookie": "^3.0.1",
+    "next-redux-wrapper": "^8.1.0",
+    "next-seo": "^5.15.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "redux-thunk": "^2.4.2",
+    "sass": "^1.57.1"
   },
   "devDependencies": {
     "sass": "^1.57.1"

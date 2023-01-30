@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react'
 import style from '@/styles/header.module.scss'
 import Image from 'next/image'
 import { Link } from 'react-scroll'
+import { useAuth } from '@/context/useAuth'
+import { useRouter } from 'next/router'
+import en from '@/locales/en'
+import th from '@/locales/th'
 const Header = (props) => {
     const [isSearchBar, setSearchBar] = useState(false)
+    const data = useAuth()
+    const router = useRouter()
+    const { locale } = router
+    const t = locale === "en" ? en : th
     const onChangeFunc = (e) => {
         const { name, value } = e.target
         props.setSearch(value)
@@ -12,7 +20,6 @@ const Header = (props) => {
         setSearchBar(false)
         props.setSearch('')
     }
-
     return (
         <>
             <header className={style.header}>
@@ -35,7 +42,14 @@ const Header = (props) => {
                         <div className={style.navBar + ' navBar'}>
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
-                                <Link className={style.navItem} to="sec_1" spy={true} smooth={true} offset={-200} duration={50} >
+                                {
+                                    data?.idCate && data.idCate.map((item,i) =>{
+                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} offset={-200} duration={50} >
+                                        <span>{item.category_name[locale]}</span>
+                                    </Link>
+                                    })
+                                }
+                                {/* <Link className={style.navItem} to="sec_1" spy={true} smooth={true} offset={-200} duration={50} >
                                     <span>Recommended</span>
                                 </Link>
                                 <Link className={style.navItem} to="sec_2" spy={true} smooth={true} offset={-200} duration={50} >
@@ -43,7 +57,7 @@ const Header = (props) => {
                                 </Link>
                                 <Link className={style.navItem} to="sec_3" spy={true} smooth={true} offset={-200} duration={50} >
                                     <span>Menu-2</span>
-                                </Link>
+                                </Link> */}
                             </div>
                         </div>
                     }
