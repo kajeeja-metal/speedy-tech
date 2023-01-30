@@ -35,13 +35,13 @@ const Header = (props) => {
                         <div className={style.navBar + ' navBar'}>
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
-                                <Link className={style.navItem} to="sec_1" spy={true} smooth={true} offset={-100} duration={50} >
+                                <Link className={style.navItem} to="sec_1" spy={true} smooth={true} offset={-200} duration={50} >
                                     <span>Recommended</span>
                                 </Link>
-                                <Link className={style.navItem} to="sec_2" spy={true} smooth={true} offset={-100} duration={50} >
+                                <Link className={style.navItem} to="sec_2" spy={true} smooth={true} offset={-200} duration={50} >
                                     <span>Menu-1</span>
                                 </Link>
-                                <Link className={style.navItem} to="sec_3" spy={true} smooth={true} offset={-100} duration={50} >
+                                <Link className={style.navItem} to="sec_3" spy={true} smooth={true} offset={-200} duration={50} >
                                     <span>Menu-2</span>
                                 </Link>
                             </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import style from '@/styles/detailProduct.module.scss'
 import Image from 'next/image'
 import Accordion from 'react-bootstrap/Accordion';
+import { motion, AnimatePresence } from "framer-motion"
 const DetailProduct = (props) => {
 
     const [count, setCount] = useState(0);
@@ -18,8 +19,13 @@ const DetailProduct = (props) => {
     console.log(props.isDetail)
     return (
         <>
-            <div className={style.overlay} onClick={(e) => props.setDetail(false)} />
-            <section className={style.DetailProduct}>
+        <div className={style.overlay} onClick={(e) => props.setDetail(false)} ></div>
+            <motion.div
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            className={style.DetailProduct}
+          >
                 <div className={style.title}>
                     <h1>Product Name</h1>
                     <div className={style.btnClose + ' icon_close'} onClick={(e) => props.setDetail(false)} />
@@ -116,7 +122,7 @@ const DetailProduct = (props) => {
                     </button>
 
                 </div>
-            </section>
+            </motion.div>
         </>
 
     )
