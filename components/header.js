@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import style from '@/styles/header.module.scss'
 import Image from 'next/image'
-import { Link } from 'react-scroll'
+import { Link, animateScroll as scroll } from "react-scroll";
+
 import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/router'
 import en from '@/locales/en'
@@ -20,6 +21,7 @@ const Header = (props) => {
         setSearchBar(false)
         props.setSearch('')
     }
+    
     return (
         <>
             <header className={style.header}>
@@ -43,8 +45,8 @@ const Header = (props) => {
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
                                 {
-                                    data?.idCate && data.idCate.map((item,i) =>{
-                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} offset={-50} duration={50} >
+                                    data?.products && data.products.map((item,i) =>{
+                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >
                                         <span>{item.category_name[locale]}</span>
                                     </Link>
                                     })

@@ -2,6 +2,7 @@
 const { locales, defaultLocale } = require('./i18n')
 const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
+  reactStrictMode: true,
   swcMinify: true,
   images: {
     formats: ['image/webp'],

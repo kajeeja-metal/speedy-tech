@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }) => {
                     let product = await getProducts().then((res)=>{
                         return res
                     })
-                    setProducts(product.data)
                     setUser(data.data)
                     setIdCate(product.data)
                     Cookies.set('table',JSON.stringify(data.data), { expires: 1 })
