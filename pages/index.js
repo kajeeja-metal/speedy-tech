@@ -34,7 +34,6 @@ const Index = (props) => {
     <Pages isDetail={isDetail} setSearch={setSearch}>
       {Search == '' ?
         <>
-          
           {
             dataContext.products.map((group_cat,index) => {
               return (
