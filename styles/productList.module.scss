@@ -66,12 +66,15 @@
     }
     .group{
         display: grid;
-        gap: 30px;
+        gap: 20px;
     }
     .item {
         display: grid;
         grid-template-columns: auto 1fr;
+        border-radius: 20px;
+        border: 1px solid #efefef;
         gap: 15px;
+        box-shadow: 0px 8px 11px -8px #efefef;
         .pic {
             border-radius: 10px;
             overflow: hidden;
@@ -83,6 +86,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
+            padding: 8px 18px 8px 0px;
             justify-content: space-between;
             h1 {
                 font-size: 22px;

@@ -24,7 +24,6 @@ const Index = (props) => {
       window.scrollTo(0, 0)
     }
   }, [Search])
-  console.log(dataContext)
   const openModelDataItem = (data) => {
     setDataItems(data)
     setDetail(true)
@@ -66,7 +65,7 @@ const Index = (props) => {
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={100} height={100} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={110} height={110} />
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>

@@ -23,6 +23,7 @@
         text-align: center;
         position: relative;
         border-bottom: 1px solid #efefef;
+        height: 54px;
         z-index: 2;
         h1 {
             font-size: 26px;
@@ -96,7 +97,7 @@
             background-color: unset;
             border: unset;
             outline: unset;
-            border: 1px solid #000;
+            border: 1px solid #16284B;
             border-radius: 50%;
             font-size: 30px;
             display: grid;
@@ -110,7 +111,7 @@
         outline: unset;
         margin: 0 auto 40px;
         width: calc(100% - 40px);
-        background-color: #000;
+        background-color: #16284B;
         color: #fff;
         display: flex;
         justify-content: space-between;
