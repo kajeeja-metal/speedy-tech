@@ -47,7 +47,7 @@ const Index = (props) => {
                       return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt={menu?.image_url} width={300} height={300} />
+                              <img src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt={menu?.image_url} width={300} height={300} />
                             </div>
                             <div className={style.detail}>
                               <h1>{menu.name[locale]}</h1>
@@ -67,7 +67,7 @@ const Index = (props) => {
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={110} height={110} />
+                              <img src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={110} height={110} />
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>
