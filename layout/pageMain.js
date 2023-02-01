@@ -24,7 +24,7 @@ const Pages = (props) => {
         return () => document.body.removeEventListener('wheel', cancelWheel)
     }, [])
     return (
-        <div className={props.isDetail == true ? 'contentArea hidden' : 'contentArea'} >
+        <div className={props.isDetail == true ? 'contentArea hidden' : 'contentArea'} onWheel={e => onWhee(e)} >
             <Header setSearch={props.setSearch} />
             <div className="contentArea_wrapper">
                 {props.children}
