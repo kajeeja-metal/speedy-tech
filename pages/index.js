@@ -33,41 +33,31 @@ const Index = (props) => {
     <Pages isDetail={isDetail} setSearch={setSearch}>
       {Search == '' ?
         <>
-          <section className={style.productRec} id={'sec_20'}>
-            <h1 className={style.title}>Recommended</h1>
-            <div className={style.group}>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={300} height={300} />
-                </div>
-                <div className={style.detail}>
-                  <h1>Product Rec</h1>
-                  <p>158</p>
-                </div>
-              </div>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={300} height={300} />
-                </div>
-                <div className={style.detail}>
-                  <h1>Product Rec</h1>
-                  <p>158</p>
-                </div>
-              </div>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={300} height={300} />
-                </div>
-                <div className={style.detail}>
-                  <h1>Product Rec</h1>
-                  <p>158</p>
-                </div>
-              </div>
-            </div>
-          </section>
+          
           {
             dataContext.products.map((group_cat,index) => {
               return (
+                group_cat.category_recommend ? 
+                <section className={style.productRec} id={`sec_${index}`}>
+                  <h1 className={style.title}>{group_cat.category_name[locale]}</h1>
+                  <div className={style.group}>
+                    
+                    {group_cat.menus.map((menu,i) => {
+                      return (
+                          <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
+                            <div className={style.pic}>
+                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt={menu?.image_url} width={300} height={300} />
+                            </div>
+                            <div className={style.detail}>
+                              <h1>{menu.name[locale]}</h1>
+                              <p>{menu.sale_price != null ? menu.sale_price : menu.price} ฿</p>
+                            </div>
+                          </div>
+                      )
+                    })}
+                  </div>
+                </section>
+                :
                 <section className={style.productList} id={`sec_${index}`}>
                   <h1 className={style.title}>{group_cat.category_name[locale]}</h1>
                   <div className={style.group}>
@@ -76,22 +66,21 @@ const Index = (props) => {
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src="/img/product.jpg" alt="" width={100} height={100} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={100} height={100} />
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>
                                 <h1>{menu.name[locale]}</h1>
                                 <p>{menu.description[locale]}</p>
                               </div>
-                              <div className={style.row}>
-                                <p className='txt-md text-dark'>{menu.sale_price != null ? menu.sale_price : menu.price}฿</p>
-                              </div>
+                              {menu.price != 0 && <div className={style.row}>
+                                <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu.sale_price != 0 ? menu.sale_price : menu.price} ฿</p>
+                              </div>}
                             </div>
                           </div>
                         )
                       })
                     }
-                   
                   </div>
                 </section>
               )

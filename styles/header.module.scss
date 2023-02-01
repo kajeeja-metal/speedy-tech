@@ -1,8 +1,8 @@
 .header {
     background-color: #fff;
     position: sticky;
-    top: -1px;
-    z-index: 1;
+    top: -70px;
+    z-index: 10;
     .appName{
         position: relative;
     }
@@ -21,11 +21,12 @@
         text-align: center;
         padding: 5px;
         h1 {
-            font-size: 18px;
-            font-family: "PromptMedium";
+            font-size: 26px;
+            font-family: "HelvethaicaMed";
+            line-height: 1;
         }
         p {
-            font-size: 12px;
+            font-size: 23px;
         }
     }
     .icon {
@@ -62,7 +63,8 @@
     .navItem {
         padding: 2px 15px;
         border-radius: 15px;
-        font-size: 16px;
+        font-size: 22px;
+        line-height: 1.4;
         text-decoration: none;
         color: #000;
     }

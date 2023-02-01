@@ -3,8 +3,8 @@
     padding: 15px;
     margin-bottom: 10px;
     .title {
-        font-size: 20px;
-        font-family: "PromptMedium";
+        font-size: 30px;
+        font-family: "HelvethaicaMed";
         padding-bottom: 15px;
     }
     .item {
@@ -13,6 +13,18 @@
         .pic {
             border-radius: 10px;
             overflow: hidden;
+            position: relative;
+            &:after{
+                content: "";
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                left: 0;
+                top: 0;
+                background-color: #000;
+                opacity: 0.1;
+                z-index: 1;
+            }
         }
         img {
             width: 100%;
@@ -22,18 +34,22 @@
             position: absolute;
             bottom: 10px;
             left: 15px;
+            z-index: 2;
             h1 {
                 font-size: 28px;
-                font-family: "PromptMedium";
+                font-family: "HelvethaicaMed";
                 color: #fff;
                 margin-bottom: 5px;
             }
             p {
-                font-size: 14px;
+                font-size: 20px;
                 background-color: #fff;
                 width: fit-content;
-                padding: 2px 5px;
+                padding: 2px 15px;
                 border-radius: 5px;
+                &.txt-md{
+                    font-size: 24px;
+                }
             }
         }
     }
@@ -44,15 +60,18 @@
     padding: 15px;
     margin-bottom: 10px;
     .title {
-        font-size: 20px;
-        font-family: "PromptMedium";
+        font-size: 30px;
+        font-family: "HelvethaicaMed";
         padding-bottom: 15px;
+    }
+    .group{
+        display: grid;
+        gap: 30px;
     }
     .item {
         display: grid;
         grid-template-columns: auto 1fr;
         gap: 15px;
-        margin-bottom: 15px;
         .pic {
             border-radius: 10px;
             overflow: hidden;
@@ -66,8 +85,8 @@
             flex-direction: column;
             justify-content: space-between;
             h1 {
-                font-size: 20px;
-                font-family: "PromptMedium";
+                font-size: 22px;
+                font-family: "HelvethaicaMed";
                 margin-bottom: 5px;
             }
             p {
@@ -76,9 +95,10 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                font-size: 16px;
+                font-size: 18px;
                 line-height: 1.2;
                 color: #77777a;
+                
             }
         }
     }

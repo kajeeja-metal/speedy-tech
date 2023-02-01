@@ -37,11 +37,11 @@ const DetailProduct = (props) => {
                 </div>
                 <div className={style.scrollDtail}>
                     <div className={style.pic}>
-                        <Image src={"/img/product.jpg"} alt="" width={300} height={350} />
+                        <Image src={dataItem?.image_url ? dataItem?.image_url : "/img/product.jpg"} alt="" width={300} height={350} />
                     </div>
                     <div className={style.nameProduct}>
                         <div className={style.row}>
-                            <h1>{dataItem.name[locale]}</h1>
+                            <h1 style={{paddingRight: "30px"}}>{dataItem.name[locale]}</h1>
                             <h1>{dataItem.price} ฿</h1>
                         </div>
                         <div className={style.row}>
@@ -55,7 +55,7 @@ const DetailProduct = (props) => {
                                         return (
                                                 <Accordion.Item eventKey={i}>
                                                     <Accordion.Header>
-                                                        <p> {attr.attribute.name[locale]}<br /><span>Select at least {attr.attribute.choice_limit} item</span></p>
+                                                        <p className={style.subMenu}> {attr.attribute.name[locale]} <span>Select at least {attr.attribute.choice_limit} item</span></p>
                                                     </Accordion.Header>
                                                     <Accordion.Body>
                                                         {
@@ -142,7 +142,7 @@ const DetailProduct = (props) => {
                     </div>
                     <button className={style.addToCart}>
                         <span>Add to cart</span>
-                        <span>0$</span>
+                        <span>฿ 0</span>
                     </button>
 
                 </div>

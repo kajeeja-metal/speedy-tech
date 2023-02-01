@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-    font-family: "PromptRegular", sans-serif;
+    font-family: "HelvethaicaReg", sans-serif;
     // overflow: hidden;
     // animation: body-overflow 0s forwards;
     // animation-delay: 1.9s;
@@ -22,19 +22,29 @@ body {
     border-radius: 10px;
 }
 @font-face {
-    font-family: "PromptRegular";
-    src: url("/font/Prompt-Regular.ttf") format("truetype");
+    font-family: "HelvethaicaReg";
+    src: url("/font/DB Helvethaica X v3.2.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
-    font-family: "PromptMedium";
-    src: url("/font/Prompt-Medium.ttf") format("truetype");
+    font-family: "HelvethaicaMed";
+    src: url("/font/DB Helvethaica X Med v3.2.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
+.form-control{
+    font-size: 20px;
+}
+label{
+    letter-spacing: 0.5px;
+    font-size: 20px;
+    line-height: 1;
+}
 p {
     margin-bottom: 0;
+    letter-spacing: 0.5px;
+    // font-size: 18px !important;
 }
 @mixin reset-input {
     background-color: unset;
@@ -148,7 +158,7 @@ h6 {
     background-image: url(../public/img/icon/thaiLang.png);
 }
 .txt-md{
-    font-family: "PromptMedium" !important;
+    font-family: "HelvethaicaMed" !important;
 }
 
 .ml-0{

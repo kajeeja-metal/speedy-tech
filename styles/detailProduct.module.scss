@@ -22,12 +22,12 @@
     .title {
         text-align: center;
         position: relative;
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid #efefef;
         z-index: 2;
         h1 {
-            font-size: 20px;
-            font-family: "PromptMedium";
-            padding: 15px;
+            font-size: 26px;
+            font-family: "HelvethaicaMed";
+            padding: 8.5px 50px;
         }
         .btnClose {
             background-size: contain;
@@ -54,11 +54,19 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 5px;
+            p{
+                font-size: 20px;
+                line-height: 1.2;
+                letter-spacing: 0.5px;
+            }
         }
         h1 {
-            font-size: 20px;
-            font-family: "PromptMedium";
+            font-size: 30px;
+            font-family: "HelvethaicaMed";
         }
+    }
+    .subMenu{
+        font-size: 24px;
     }
     .scrollDtail {
         overflow-y: auto;
@@ -97,17 +105,18 @@
     }
     .addToCart {
         position: sticky;
-        bottom: 10px;
+        bottom: 40px;
         border: unset;
         outline: unset;
-        margin: 0 auto 20px;
-        width: calc(100% - 30px);
+        margin: 0 auto 40px;
+        width: calc(100% - 40px);
         background-color: #000;
         color: #fff;
         display: flex;
         justify-content: space-between;
-        padding: 10px 15px;
+        padding: 10px 30px;
         border-radius: 5px;
-        font-size: 18px;
+        font-size: 26px;
+        letter-spacing: 0.5px;
     }
 }

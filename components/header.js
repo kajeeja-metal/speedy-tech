@@ -28,8 +28,8 @@ const Header = (props) => {
                         <div className={style.btnBack + ' icon_back'} onClick={(e) => backBtn()} />
                     }
                     <div className={style.groupText}>
-                        <h1>App Test</h1>
-                        <p>ทดสอบ</p>
+                        <h1>{data?.user?.shop_name[locale]}</h1>
+                        <p>{data?.user?.branch_name[locale] +" - "+ data?.user?.table_name[locale]}</p>
                     </div>
                 </div>
                 <div className={style.swichNav}>
@@ -44,7 +44,7 @@ const Header = (props) => {
                             <div className={style.groupNav}>
                                 {
                                     data?.idCate && data.idCate.map((item,i) =>{
-                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} offset={-200} duration={50} >
+                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} offset={-50} duration={50} >
                                         <span>{item.category_name[locale]}</span>
                                     </Link>
                                     })
