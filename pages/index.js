@@ -29,7 +29,7 @@ const Index = (props) => {
   }, [Search])
   useEffect(() => {
     // refs.current[0].current.focus()
-    refs.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
     // dataContext.setHeightCateory()
   }, [dataContext.heightCateory]);
   const openModelDataItem = (data) => {
