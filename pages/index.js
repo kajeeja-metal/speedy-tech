@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Pages from '/layout/pageMain'
 import Link from 'next/link'
 import style from '@/styles/productList.module.scss'
 import DetailProduct from '@/components/detailProduct'
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/router'
@@ -13,6 +13,7 @@ import th from '@/locales/th'
 import ScrollSpy from "react-ui-scrollspy";
 
 const Index = (props) => {
+  let refs = useRef(null);
   const [isDetail, setDetail] = useState(false)
   const [dataItems, setDataItems] = useState([])
   const dataContext = useAuth()
@@ -26,6 +27,11 @@ const Index = (props) => {
       window.scrollTo(0, 0)
     }
   }, [Search])
+  useEffect(() => {
+    // refs.current[0].current.focus()
+    refs.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    // dataContext.setHeightCateory()
+  }, [dataContext.heightCateory]);
   const openModelDataItem = (data) => {
     setDataItems(data)
     setDetail(true)
@@ -38,7 +44,7 @@ const Index = (props) => {
             dataContext.products.map((group_cat,index) => {
               return (
                 group_cat.category_recommend ? 
-                <section className={style.productRec} id={`sec_${index}`}>
+                <section className={style.productRec} id={`sec_${index}`} ref={index === dataContext?.heightCateory ? refs : null}>
                   <h1 className={style.title}>{group_cat.category_name[locale]}</h1>
                   <div className={style.group}>
                     
@@ -46,7 +52,7 @@ const Index = (props) => {
                       return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"}  alt={menu?.image_url} width={300} height={300} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"}  alt={menu?.image_url} width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
                             </div>
                             <div className={style.detail}>
                               <h1>{menu.name[locale]}</h1>
@@ -58,7 +64,7 @@ const Index = (props) => {
                   </div>
                 </section>
                 :
-                <section className={style.productList} id={`sec_${index}`}>
+                <section className={style.productList} id={`sec_${index}`} ref={index === dataContext?.heightCateory ? refs : null}>
                   <h1 className={style.title}>{group_cat.category_name[locale]}</h1>
                   <div className={style.group}>
                     {
@@ -66,7 +72,7 @@ const Index = (props) => {
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={110} height={110} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={110} height={110} objectFit={"cover"} />
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>

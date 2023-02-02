@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from "react";
 import Pages from '@/layouts/pageMain'
 import Router, { useRouter } from 'next/router'
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import en from '@/locales/en'
 import th from '@/locales/th'
 const Home = (props) => {

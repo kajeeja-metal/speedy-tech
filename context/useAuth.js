@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [products, setProducts] = useState([])
     const [idCate,setIdCate ] = useState(null)
+    const [heightCateory,setHeightCateory ] = useState(0)
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         async function loadUserFromCookies() {
@@ -23,8 +24,9 @@ export const AuthProvider = ({ children }) => {
                     let product = await getProducts().then((res)=>{
                         return res
                     })
+                    setProducts(product.data)
                     setUser(data.data)
-                    setIdCate(product.data)
+                    // setIdCate(product.data)
                     Cookies.set('table',JSON.stringify(data.data), { expires: 1 })
                     Router.push('/')
                 }else{
@@ -47,7 +49,13 @@ export const AuthProvider = ({ children }) => {
         }
         loadUserFromCookies()
     }, [])
-    
+    const scrolLWithUseRef = (e,i) => {
+        
+        setHeightCateory(e)
+        
+        console.log('scrolLWithUseRef',e,i)
+        // divFive.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+      };
     const login = async (code) => {
         const { data: token } = await getScanqr(code)
         if (token) {
@@ -69,7 +77,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory }}>
             {children}
         </AuthContext.Provider>
     )
