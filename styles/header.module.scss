@@ -53,8 +53,8 @@
         gap: 5px;
         grid-auto-flow: column;
         overflow-x: auto;
-        white-space: nowrap;
-        scroll-snap-type: x mandatory;
+        // white-space: nowrap;
+        // scroll-snap-type: x mandatory;
         position: relative;
         &::-webkit-scrollbar {
             display: none;

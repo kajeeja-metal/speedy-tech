@@ -38,6 +38,7 @@ const Index = (props) => {
   }
   return (
     <Pages isDetail={isDetail} setSearch={setSearch}>
+      
       {Search == '' ?
         <>
           {
