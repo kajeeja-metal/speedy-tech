@@ -11,7 +11,6 @@ const DetailProduct = (props) => {
     const { locale } = router
     const t = locale === "en" ? en : th
     const [count, setCount] = useState(1);
-
     const plusFunc = () => {
         setCount(count + 1);
     };
@@ -37,12 +36,22 @@ const DetailProduct = (props) => {
                 </div>
                 <div className={style.scrollDtail}>
                     <div className={style.pic}>
-                        <Image src={dataItem?.image_url ? dataItem?.image_url : "/img/product.jpg"} alt="" width={300} height={350} layout="responsive" />
+                        <Image src={dataItem?.image_url ? dataItem?.image_url : "/img/product.jpg"} alt="" width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
                     </div>
                     <div className={style.nameProduct}>
                         <div className={style.row}>
                             <h1 style={{ paddingRight: "30px" }}>{dataItem.name[locale]}</h1>
-                            <h1>{dataItem.price} ฿</h1>
+                            <h1>{dataItem?.sale_price != 0 && dataItem?.sale_price ? <>
+                                <span>
+                                  {dataItem.sale_price} ฿
+                                </span>
+                                <span  className='discount-price'>
+                                  {
+                                     dataItem.price
+                                  } ฿
+
+                                </span>
+                                </> : ""}</h1>
                         </div>
                         <div className={style.row}>
                             <p>{dataItem.description[locale]}</p>
@@ -66,10 +75,10 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className="form-check-input" type="radio" name={opt._id} id="radio_1" />
+                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id="radio_1" />
                                                                         <label className="form-check-label" htmlFor="radio_1">
-                                                                            <span>checked radio</span>
-                                                                            <span>0$</span>
+                                                                            <span>{opt.name[locale]}</span>
+                                                                            <span>{opt.price ? "฿" : ''}</span>
                                                                         </label>
                                                                     </div>
 
@@ -102,29 +111,6 @@ const DetailProduct = (props) => {
                                 )
                             })
                         }
-                        {/* <Accordion.Item eventKey="1">
-                                        <Accordion.Header>
-                                            <p> Accordion Item #2<br /><span>Select at least 1 item</span></p>
-                                        </Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className='optionItem'>
-                                                <div className="form-check mb-3">
-                                                    <input className="form-check-input" type="checkbox" id="check_1" />
-                                                    <label className="form-check-label" htmlFor="check_1">
-                                                        <span>Default checkbox</span>
-                                                        <span>10$</span>
-                                                    </label>
-                                                </div>
-                                                <div className="form-check mb-3">
-                                                    <input className="form-check-input" type="checkbox" id="check_2" />
-                                                    <label className="form-check-label" htmlFor="check_2">
-                                                        <span>Default checkbox</span>
-                                                        <span>90$</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item> */}
                     </Accordion>
 
 

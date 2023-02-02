@@ -9,6 +9,17 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter()
     const [user, setUser] = useState(null)
     const [products, setProducts] = useState([])
+    const [transitions, setTransitions] = useState({
+        customer : {
+            name : "",
+            tel : "",
+            line_uid : "",
+            note : "",
+            expected_date : "",
+            total : ""
+        },
+        products : []
+    })
     const [idCate,setIdCate ] = useState(null)
     const [heightCateory,setHeightCateory ] = useState(0)
     const [loading, setLoading] = useState(true)
@@ -16,6 +27,17 @@ export const AuthProvider = ({ children }) => {
         async function loadUserFromCookies() {
             const token = Cookies.get('token')
             const account = Cookies.get('table')
+            setTransitions({
+                customer : {
+                    name : "asdasdasdasd",
+                    tel : "",
+                    line_uid : "",
+                    note : "",
+                    expected_date : "",
+                    total : ""
+                },
+                products : []
+            })
             if (router.query?.slug || !account ) {
                 // console.log(router.query.code)
                 const data = await getScanqr(router.query.slug)
@@ -25,7 +47,19 @@ export const AuthProvider = ({ children }) => {
                         return res
                     })
                     setProducts(product.data)
+                    
                     setUser(data.data)
+                    setTransitions({
+                        customer : {
+                            name : "",
+                            tel : "",
+                            line_uid : "",
+                            note : "",
+                            expected_date : "",
+                            total : ""
+                        },
+                        products : []
+                    })
                     // setIdCate(product.data)
                     Cookies.set('table',JSON.stringify(data.data), { expires: 1 })
                     Router.push('/')
@@ -40,14 +74,27 @@ export const AuthProvider = ({ children }) => {
                 let product = await getProducts().then((res)=>{
                     return res
                 })
+                console.log(JSON.parse(account))
                 setProducts(product.data)
                 setIdCate(product.data)
+                setTransitions({
+                    customer : {
+                        name : "",
+                        tel : "",
+                        line_uid : "",
+                        note : "",
+                        expected_date : "",
+                        total : ""
+                    },
+                    products : []
+                })
                 setUser(JSON.parse(account))
                 // router.push("error")
             }
             setLoading(false)
         }
         loadUserFromCookies()
+        console.log("transitions",transitions)
     }, [])
     const scrolLWithUseRef = (e,i) => {
         
@@ -77,7 +124,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions }}>
             {children}
         </AuthContext.Provider>
     )

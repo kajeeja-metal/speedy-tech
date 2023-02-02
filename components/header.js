@@ -36,7 +36,7 @@ const Header = (props) => {
             <header className={style.header}>
                 <div className={style.topbar_menu}>
                     <div className={style.logo}>
-                        <Image src={'/images/logo.png'} width={36} height={36} alt="logo"></Image>
+                        <Image src={ !data?.user?.logo_image ? '/images/logo.png' : data?.user?.logo_image} width={36} height={36} alt="logo"></Image>
                     </div>
                     <div className={style.group_shop}>
                         <div className={style.name}>{data?.user?.shop_name[locale]}</div>

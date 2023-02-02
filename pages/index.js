@@ -44,6 +44,7 @@ const Index = (props) => {
     setDataItems(data)
     setDetail(true)
   }
+  // console.log(dataContext.transitions)
   return (
     <Pages isDetail={isDetail} setSearch={setSearch}>
       
@@ -58,7 +59,6 @@ const Index = (props) => {
                   <div className={style.group}>
                     
                     {group_cat.menus.map((menu,i) => {
-                      console.log(menu.sale_price)
                       return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
@@ -66,7 +66,18 @@ const Index = (props) => {
                             </div>
                             <div className={style.detail}>
                               <h1>{menu.name[locale]}</h1>
-                              <p>{menu?.sale_price != 0 && menu?.sale_price ? menu.sale_price + " - "+ menu.price : menu.price} ฿</p>
+                              <p>{menu?.sale_price != 0 && menu?.sale_price ?  (
+                                <>
+                                <span>
+                                  {menu.sale_price} ฿
+                                </span>
+                                <span  className='discount-price'>
+                                  {
+                                     menu.price
+                                  } ฿
+                                </span>
+                                </>
+                              ) : menu.price +" ฿"} </p>
                             </div>
                           </div>
                       )
@@ -91,7 +102,19 @@ const Index = (props) => {
                                 <p>{menu.description[locale]}</p>
                               </div>
                               {menu.price != 0 && <div className={style.row}>
-                                <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu.sale_price != 0 ? menu.sale_price : menu.price} ฿</p>
+                                <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu?.sale_price != 0 && menu?.sale_price ?  (
+                                <>
+                                <span>
+                                  {menu.sale_price} ฿
+                                </span>
+                                <span  className='discount-price'>
+                                  {
+                                     menu.price
+                                  } ฿
+
+                                </span>
+                                </>
+                              ) : menu.price + " ฿"}</p>
                               </div>}
                             </div>
                           </div>
