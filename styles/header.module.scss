@@ -81,6 +81,9 @@
         text-decoration: none;
         color: #000;
         position: relative;
+        span{
+            white-space: nowrap;
+        }
         &:after{
             position: absolute;
             content: "";
