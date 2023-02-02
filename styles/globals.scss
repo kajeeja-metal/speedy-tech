@@ -170,7 +170,9 @@ h6 {
         // overflow: hidden;
     }
 }
-
+html {
+    overscroll-behavior: none
+}
 header .navBar .active{
     background-color: #16284B;
     color: #fff;
