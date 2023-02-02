@@ -72,20 +72,20 @@ const Header = (props) => {
                         <div className={style.navBar + ' navBar'}>
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
-                                {
+                                {/* {
                                     data?.products && data.products.map((item,i) =>{
                                         return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >
                                         <span>{item.category_name[locale]}</span>
                                     </Link>
                                     })
-                                }
-                                {/* {
+                                } */}
+                                {
                                     data?.products && data.products.map((item,i) =>{
                                         return <div onClick={(e) => data.scrolLWithUseRef(i,e)} className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >
                                         <span>{item.category_name[locale]}</span>
                                     </div>
                                     })
-                                } */}
+                                }
                                 {/* <Link className={style.navItem} to="sec_1" spy={true} smooth={true} offset={-200} duration={50} >
                                     <span>Recommended</span>
                                 </Link>
