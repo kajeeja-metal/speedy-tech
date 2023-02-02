@@ -9,6 +9,8 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter()
     const [user, setUser] = useState(null)
     const [products, setProducts] = useState([])
+    const [slideIndex, setSlideIndex] = useState(0)
+    const [updateCount, setUpdateCount] = useState(0)
     const [transitions, setTransitions] = useState({
         customer : {
             name : "",
@@ -99,10 +101,10 @@ export const AuthProvider = ({ children }) => {
     const scrolLWithUseRef = (e,i) => {
         
         setHeightCateory(e)
-        
+        setUpdateCount(e)
         console.log('scrolLWithUseRef',e,i)
         // divFive.current?.scrollIntoView({ block: "center", behavior: "smooth" });
-      };
+    };
     const login = async (code) => {
         const { data: token } = await getScanqr(code)
         if (token) {
@@ -124,7 +126,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions,slideIndex, setSlideIndex , updateCount, setUpdateCount }}>
             {children}
         </AuthContext.Provider>
     )

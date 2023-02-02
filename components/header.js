@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import style from '@/styles/header.module.scss'
 import Image from 'next/legacy/image'
 import { Link, animateScroll as scroll } from "react-scroll";
@@ -10,6 +10,7 @@ import th from '@/locales/th'
 import Slider from "react-slick";
 const Header = (props) => {
     const [isSearchBar, setSearchBar] = useState(false)
+    let sliders = useRef(null)
     const data = useAuth()
     const router = useRouter()
     const { locale } = router
@@ -18,9 +19,13 @@ const Header = (props) => {
         className: "slider variable-width",
         centerMode: false,
         infinite: false,
-        slidesToShow: 3,
+        slidesToShow: 1,
+        slidesToScroll: 1,
         speed: 500,
-        variableWidth: true
+        variableWidth: true,
+        afterChange: () =>
+        data.setSlideIndex((prev) => (prev + 1)),
+        beforeChange: (current, next) => data.setSlideIndex(next)
       };
     const onChangeFunc = (e) => {
         const { name, value } = e.target
@@ -81,10 +86,10 @@ const Header = (props) => {
                         <div className={style.navBar + ' navBar'}>
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
-                                <Slider {...settings}>
+                                <Slider {...settings} ref={slider => (sliders = slider)}>
                                 {
                                     data?.products && data.products.map((item,i) =>{
-                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >
+                                        return <Link className={style.navItem} to={`sec_${i}`} isDynamic={true} onSetActive={(e) => sliders.slickGoTo(i)} spy={true} smooth={true} exact='true' offset={-50} duration={50} onClick={(e) => sliders.slickGoTo(i)} >
                                         <span>{item.category_name[locale]}</span>
                                     </Link>
                                     })
