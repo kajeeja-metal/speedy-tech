@@ -32,7 +32,16 @@ const Index = (props) => {
     refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
     // dataContext.setHeightCateory()
   }, [dataContext.heightCateory]);
+  useEffect(()=>{
+    if(!isDetail){
+      var body = document.body;
+      body.classList.remove("lockPage");
+    }
+    
+  },[isDetail])
   const openModelDataItem = (data) => {
+    var body = document.body;
+    body.classList.add("lockPage");
     setDataItems(data)
     setDetail(true)
   }
@@ -50,6 +59,7 @@ const Index = (props) => {
                   <div className={style.group}>
                     
                     {group_cat.menus.map((menu,i) => {
+                      console.log(menu.sale_price)
                       return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
@@ -57,7 +67,7 @@ const Index = (props) => {
                             </div>
                             <div className={style.detail}>
                               <h1>{menu.name[locale]}</h1>
-                              <p>{menu.sale_price != null ? menu.sale_price : menu.price} ฿</p>
+                              <p>{menu?.sale_price != 0 && menu?.sale_price ? menu.sale_price + " - "+ menu.price : menu.price} ฿</p>
                             </div>
                           </div>
                       )
@@ -70,6 +80,7 @@ const Index = (props) => {
                   <div className={style.group}>
                     {
                       group_cat.menus.map((menu,i) => {
+                        menu.name[locale] == "ข้าวหน้าเนื้อ" && console.log(menu)
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>

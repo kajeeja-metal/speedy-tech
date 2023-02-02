@@ -140,10 +140,12 @@ const DetailProduct = (props) => {
                         <h1>{count}</h1>
                         <button className={style.btnCount} onClick={() => plusFunc()}>+</button>
                     </div>
-                    <button className={style.addToCart}>
-                        <span>Add to cart</span>
-                        <span>฿ 0</span>
-                    </button>
+                    <div className={style.group_button + ' p-3'}>
+                        <button className={style.addToCart}>
+                            <span>Add to cart</span>
+                            <span>฿ 0</span>
+                        </button>
+                    </div>
 
                 </div>
             </motion.div>

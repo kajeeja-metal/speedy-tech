@@ -25,6 +25,11 @@
         border-bottom: 1px solid #efefef;
         height: 54px;
         z-index: 2;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
         h1 {
             font-size: 26px;
             font-family: "HelvethaicaMed";
@@ -62,7 +67,7 @@
             }
         }
         h1 {
-            font-size: 30px;
+            font-size: 25px;
             font-family: "HelvethaicaMed";
         }
     }
@@ -105,12 +110,11 @@
         }
     }
     .addToCart {
-        position: sticky;
-        bottom: 40px;
+        // position: sticky;
+        // bottom: 40px;
         border: unset;
         outline: unset;
-        margin: 0 auto 40px;
-        width: calc(100% - 40px);
+        width: 100%;
         background-color: #16284B;
         color: #fff;
         display: flex;
@@ -120,4 +124,10 @@
         font-size: 26px;
         letter-spacing: 0.5px;
     }
+}
+.group_button{
+    position: sticky;
+    bottom: 0px;
+    background: #fff;
+    padding-bottom: 40px !important;
 }

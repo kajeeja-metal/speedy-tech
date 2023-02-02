@@ -45,14 +45,25 @@
         grid-template-columns: auto 1fr;
         gap: 20px;
         height: 100%;
+        position: relative;
         padding: 0px 15px;
+        &::after{
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: #fff;
+            width: 48px;
+            height: 48px;
+            box-shadow: -13px 0px 6px -8px #efefef;
+        }
     }
 
     .groupNav {
         display: flex;
         gap: 5px;
         grid-auto-flow: column;
-        overflow-x: auto;
+        // overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch; /* [3] */
         -ms-overflow-style: -ms-autohiding-scrollbar; /* [4] */ 
@@ -69,6 +80,17 @@
         line-height: 1.4;
         text-decoration: none;
         color: #000;
+        position: relative;
+        &:after{
+            position: absolute;
+            content: "";
+            right: 0;
+            height: 30px;
+            top: 5px;
+            width: 0.5px;
+            filter: blur(1px);
+            background-color: #16284b45;
+        }
     }
 
     .searchBar{
