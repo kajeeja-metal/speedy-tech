@@ -54,6 +54,7 @@
         grid-auto-flow: column;
         overflow-x: auto;
         // white-space: nowrap;
+        width: 100px;
         // scroll-snap-type: x mandatory;
         position: relative;
         &::-webkit-scrollbar {
