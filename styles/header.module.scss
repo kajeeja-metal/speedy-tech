@@ -55,7 +55,7 @@
         overflow-x: auto;
         // scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch; /* [3] */
-  -ms-overflow-style: -ms-autohiding-scrollbar; /* [4] */ }
+        -ms-overflow-style: -ms-autohiding-scrollbar; /* [4] */ 
         position: relative;
         &::-webkit-scrollbar {
             display: none;
