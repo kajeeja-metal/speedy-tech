@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 @mixin animation-delay($time) {
     -webkit-transition: all $time + s ease-in-out;
     -moz-transition: all $time + s ease-in-out;

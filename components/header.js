@@ -7,12 +7,21 @@ import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/router'
 import en from '@/locales/en'
 import th from '@/locales/th'
+import Slider from "react-slick";
 const Header = (props) => {
     const [isSearchBar, setSearchBar] = useState(false)
     const data = useAuth()
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
+    const settings = {
+        className: "slider variable-width",
+        centerMode: false,
+        infinite: false,
+        slidesToShow: 3,
+        speed: 500,
+        variableWidth: true
+      };
     const onChangeFunc = (e) => {
         const { name, value } = e.target
         props.setSearch(value)
@@ -72,6 +81,7 @@ const Header = (props) => {
                         <div className={style.navBar + ' navBar'}>
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
+                                <Slider {...settings}>
                                 {
                                     data?.products && data.products.map((item,i) =>{
                                         return <Link className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >
@@ -79,6 +89,7 @@ const Header = (props) => {
                                     </Link>
                                     })
                                 }
+                                </Slider>
                                 {/* {
                                     data?.products && data.products.map((item,i) =>{
                                         return <div onClick={(e) => data.scrolLWithUseRef(i,e)} className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >

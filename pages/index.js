@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import en from '@/locales/en'
 import th from '@/locales/th'
 import ScrollSpy from "react-ui-scrollspy";
-
+import Slider from "react-slick";
 const Index = (props) => {
   let refs = useRef(null);
   const [isDetail, setDetail] = useState(false)
@@ -21,7 +21,6 @@ const Index = (props) => {
   const { locale } = router
   const t = locale === "en" ? en : th
   const [Search, setSearch] = useState('')
-
   useEffect(() => {
     if (Search != '') {
       window.scrollTo(0, 0)
