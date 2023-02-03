@@ -19,11 +19,11 @@ const DealItemEdit = (props) => {
     }
     const plusFunc = (i) => {
         setCount(count + 1);
-        dataContext.editToOrder(props.index, count + 1 , 1)
+        dataContext.editToOrder(props.index, count + 1 , 1,props.dealItem.order)
     };
     const minusFunc = (i) => {
         setCount(count - 1);
-        dataContext.editToOrder(props.index, count - 1,-1)
+        dataContext.editToOrder(props.index, count - 1,-1,props.dealItem.order)
     };
     return (
         <div className={style.dealItem}>
@@ -31,7 +31,7 @@ const DealItemEdit = (props) => {
                 <Image src={props.dealItem.order?.image_url ? props.dealItem.order?.image_url : "/img/product.jpg"}  alt={props.dealItem.order?.image_url} width={40} height={40} layout={'responsive'} style={{objectFit:"cover"}}></Image>
             </div>
             <div className={style.group_dealitem}>
-                <div className={style.deal_name}>{props.dealItem.order.name[locale]}<span>฿{props.dealItem.order.price} x {count}</span></div>
+                <div className={style.deal_name}>{props.dealItem.order.name[locale]}<span>฿ {props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price :  props.dealItem.order.price} x {count}</span></div>
                 <div className={style.deal_detail}>{props.dealItem.order.description[locale]}</div>
                 <div className={style.bottom_deal_item}>
                     <div className={style.deal_price}>

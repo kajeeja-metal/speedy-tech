@@ -162,7 +162,7 @@ const DetailProduct = (props) => {
                         <button className={style.btnCount} onClick={() => plusFunc()}>+</button>
                     </div>
                     <div className={style.group_button + ' p-3'} onClick={() => {
-                        addToOrder(dataItem,count,options,note)
+                        addToOrder(dataItem,count,options,note,totalPrice)
                         props.setDetails(false)
                         }}>
                         <button className={style.addToCart}>

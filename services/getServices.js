@@ -22,18 +22,18 @@ export const getProducts = async () => {
       return data;
     } catch { }
 };
-export const addTransactions = async (data) => {
+export const addTransactions = async (item) => {
   const token = axios.defaults.headers.Authorization;
   try {
     var config = {
-      method: 'POST',
-      url: baseURL + '/v1/transactions/order',
+      method: 'post',
+      url: baseURL + '/v1/transaction/order',
       headers: {
         Authorization: axios.defaults.headers.Authorization,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body : JSON.stringify(data)
+      data: item
     };
     let data = await axios(config)
       .then(function (response) {

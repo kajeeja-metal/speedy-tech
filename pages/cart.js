@@ -8,7 +8,7 @@ import DealItemEdit from "@/components/dealItemedit";
 import style from "@/styles/DealItemEdit.module.scss"
 import { Modal } from 'react-bootstrap';
 import { useAuth } from '@/context/useAuth'
-import { addTransactions } from "@/services/getServices";
+import { addTransactions ,getProducts } from "@/services/getServices";
 const Cart = (props) => {
     const router = useRouter()
     const { locale } = router
@@ -22,9 +22,11 @@ const Cart = (props) => {
     },[])
     const onClickAddOrder = async () =>{
         setShowConfirm(true)
+        
     }
     const onTransactions = async () =>{
-        let status = await addTransactions()
+        let data = await addTransactions(dataContext.transitions)
+        setShowConfirm(false)
     }
     return (
         <Pagemini  title={'รายการที่สั่ง'}>
@@ -39,7 +41,7 @@ const Cart = (props) => {
             <div className={style.group_button_bottom}>
                 <div className={style.group_total}>
                     <div className={style.titletotal}>รวมค่าอาหาร</div>
-                    <div className={style.price}>฿265.00</div>
+                    <div className={style.price}>฿ {dataContext?.transitions.customer.priceTotal.toLocaleString('en-US')}</div>
                 </div>
                 <div className={style.group_addtocart}>
                     <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>ส่งรายการ</div>
@@ -55,8 +57,8 @@ const Cart = (props) => {
                             <p className="subtitle_text">คุณต้องการส่งรายการอาหารนี้ใช่หรือไม่</p>
                        </div>
                        <div className="group_btn_confirm">
-                            <div className="btn btn_false">ยกเลิก</div>
-                            <div className="btn btn_true" onClick={() => {router.push('/')}}>ยืนยัน</div>
+                            <div className="btn btn_false" onClick={()=> setShowConfirm(false)}>ยกเลิก</div>
+                            <div className="btn btn_true" onClick={() => onTransactions()}>ยืนยัน</div>
                        </div>
                     </div>
                 </Modal.Body>

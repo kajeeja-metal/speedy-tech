@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
             line_uid : "",
             note : "",
             expected_date : "",
+            priceTotal : 0,
             total : ""
         },
         products : []
@@ -36,6 +37,7 @@ export const AuthProvider = ({ children }) => {
                     line_uid : "",
                     note : "",
                     expected_date : "",
+                    priceTotal : 0,
                     total : ""
                 },
                 products : []
@@ -58,6 +60,7 @@ export const AuthProvider = ({ children }) => {
                             line_uid : "",
                             note : "",
                             expected_date : "",
+                            priceTotal : 0,
                             total : ""
                         },
                         products : []
@@ -86,6 +89,7 @@ export const AuthProvider = ({ children }) => {
                         line_uid : "",
                         note : "",
                         expected_date : "",
+                        priceTotal : 0,
                         total : ""
                     },
                     products : []
@@ -124,11 +128,12 @@ export const AuthProvider = ({ children }) => {
         // window.location.pathname = '/login'
     }
 
-    const addToOrder = (order,qty,options,note) => {
+    const addToOrder = (order,qty,options,note,totalPrice) => {
         // console.log('transitions',order._id,qty,options,note)
         const sum = transitions.products.reduce((accumulator, object) => {
             return accumulator + object.qty;
         }, 0);
+        
         setTransitions((prev) => ({
             customer : {
                 name : "",
@@ -136,6 +141,7 @@ export const AuthProvider = ({ children }) => {
                 line_uid : "",
                 note : "",
                 expected_date : "",
+                priceTotal : parseInt(prev.customer.priceTotal) + parseInt(totalPrice),
                 total : sum + qty
             },
             products : [
@@ -151,9 +157,12 @@ export const AuthProvider = ({ children }) => {
         
         
     }
-    const editToOrder = (index,qty,plusmin) => {
+    const editToOrder = (index,qty,plusmin,order) => {
         // console.log('transitions',order._id,qty,options,note)
         const sum = transitions.products.reduce((accumulator, object) => {
+            return accumulator + object.qty;
+        }, 0);
+        const sumTotal = transitions.products.reduce((accumulator, object) => {
             return accumulator + object.qty;
         }, 0);
         transitions.products[index] = {
@@ -163,14 +172,12 @@ export const AuthProvider = ({ children }) => {
         setTransitions((prev) => ({
             customer : {
                 ...prev.customer,
+                priceTotal : parseInt(prev.customer.priceTotal) + (parseInt(order.sale_price != 0 ? order.sale_price : order.price) * plusmin),
                 total : sum + (plusmin)
             },
             products : transitions.products
         }))
-        
-        
     }
-    console.log(transitions)
     return (
         <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder , editToOrder}}>
             {children}
