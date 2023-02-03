@@ -26,6 +26,18 @@ const Cart = (props) => {
     }
     const onTransactions = async () =>{
         let data = await addTransactions(dataContext.transitions)
+        dataContext.setTransitions({
+            customer : {
+                name : "",
+                tel : "",
+                line_uid : "",
+                note : "",
+                expected_date : "",
+                priceTotal : 0,
+                total : ""
+            },
+            products : []
+        })
         setShowConfirm(false)
     }
     return (
