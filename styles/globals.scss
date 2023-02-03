@@ -115,6 +115,13 @@ body {
     color:#000;
     padding: 15px 0;
   }
+  .container_deal{
+    display: grid;
+    flex:1;
+    overflow-y: scroll;
+    align-items: flex-start;
+    padding-bottom: 95px;
+  }
 .arrow-up{
     font-size: 30px;
     position: fixed;

@@ -773,6 +773,7 @@ input {
   display: grid;
   gap: 15px;
   flex:1;
+  overflow-y: scroll;
   align-items: flex-start;
   padding-bottom: 95px;
 }
