@@ -91,7 +91,6 @@ const Header = (props) => {
                                     data?.products && data.products.map((item,i) =>{
                                         return <Link className={style.navItem} to={`sec_${i}`} hashSpy={false} ignoreCancelEvents={true}
                                         spyThrottle={0} isDynamic={true} onSetActive={(e) => {
-                                            console.log('index', i)
                                             sliders.slickGoTo(i)
                                             data.scrolLWithUseRef(i,e)
                                         }

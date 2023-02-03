@@ -124,9 +124,32 @@ export const AuthProvider = ({ children }) => {
         // window.location.pathname = '/login'
     }
 
+    const addToOrder = (order,qty,options,note) => {
+        // console.log('transitions',order._id,qty,options,note)
+        setTransitions((prev) => ({
+            customer : {
+                name : "",
+                tel : "",
+                line_uid : "",
+                note : "",
+                expected_date : "",
+                total : ""
+            },
+            products : [
+                ...prev.products , {
+                    product_id : order._id,
+                    qty: qty,
+                    note : note,
+                    options : options
+                }
+            ]
+        }))
 
+        
+    }
+    console.log(transitions)
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions,slideIndex, setSlideIndex , updateCount, setUpdateCount }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder}}>
             {children}
         </AuthContext.Provider>
     )
