@@ -15,13 +15,13 @@ const Cart = (props) => {
     const { locale } = router
     const t = locale === "en" ? en : th
     const dataContext = useAuth()
-    const [dataItems, setDataItems] = useState([])
+    const [dataItems, setDataItems] = useState(dataContext.transitions)
     
     const [showConfirm,setShowConfirm] = useState(false)
     const [showAddtoCart,setShowAddtoCart] = useState(false)
     useEffect(()=>{
-
-    },[])
+        console.log(dataContext.transitions)
+    },[dataContext.transitions])
     const onClickAddOrder = async () =>{
         setShowConfirm(true)
         
@@ -73,13 +73,19 @@ const Cart = (props) => {
             })
         })
     }
+    const Load = (data) => {
+        dataContext.setTransitions(data)
+        setDataItems(data)
+        console.log(dataContext.transitions.products)
+    }
+    
     return (
         <Pagemini  title={'รายการที่สั่ง'}>
             
             <div className="container_deal">
                 {
                     dataContext?.transitions.products.length != 0 ? dataContext?.transitions.products.map((item,i) => {
-                        return <DealItemEdit dealItem={item} index={i} />
+                        return <DealItemEdit dealItem={item} index={i} Load={(e) => Load(e)} />
                     }) : <div className="group_no_item">
                         No Item 
                     </div>

@@ -5,6 +5,7 @@ import Router ,{useRouter}from 'next/router'
 import en from '@/locales/en'
 import th from '@/locales/th'
 import { useAuth } from '@/context/useAuth';
+import Swal from 'sweetalert2'
 const DealItemEdit = (props) => {
     const router = useRouter()
     const { locale } = router
@@ -22,8 +23,35 @@ const DealItemEdit = (props) => {
         dataContext.editToOrder(props.index, count + 1 , 1,props.dealItem.order)
     };
     const minusFunc = (i) => {
-        setCount(count - 1);
-        dataContext.editToOrder(props.index, count - 1,-1,props.dealItem.order)
+        if((count - 1) > 0){
+            setCount(count - 1);
+            dataContext.editToOrder(props.index, count - 1,-1,props.dealItem.order)
+        }else{
+            Swal.fire({
+                title: 'ยกเลิก!',
+                text: 'คุณต้องการยกเลิก......ใช่ไหม?',
+                icon: 'error',
+                showDenyButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+                reverseButtons: true
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    // router.push('/')
+                    dataContext.transitions.products.splice(props.index, 1);
+                    dataContext.setTransitions((prev) => ({
+                        customer : {
+                            ...prev.customer,
+                        },
+                        products : dataContext.transitions.products
+                    }))
+                    console.log(dataContext)
+                } else if (result.isDenied) {
+                    // Swal.fire('Changes are not saved', '', 'info')
+                }
+            })
+        }
     };
     return (
         <div className={style.dealItem}>

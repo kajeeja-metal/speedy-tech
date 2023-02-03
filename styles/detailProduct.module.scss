@@ -23,17 +23,17 @@
         text-align: center;
         position: relative;
         border-bottom: 1px solid #efefef;
-        height: 54px;
         z-index: 2;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        
         h1 {
             font-size: 26px;
             font-family: "HelvethaicaMed";
-            padding: 8.5px 50px;
+            margin: 8.5px 50px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .btnClose {
             background-size: contain;

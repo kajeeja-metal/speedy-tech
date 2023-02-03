@@ -120,8 +120,17 @@ body {
     position: fixed;
     bottom: 120px;
     right: 20px;
-    color:#16284B;
+    color: #fff;
     z-index: 999;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    background: #16284B;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 26px;
+    border: transparent;
 }
 ::-webkit-scrollbar {
     width: 5px;

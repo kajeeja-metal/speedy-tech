@@ -75,8 +75,8 @@ const DetailProduct = (props) => {
                     </div>
                     <div className={style.nameProduct}>
                         <div className={style.row}>
-                            <h1 style={{ paddingRight: "30px" }}>{dataItem.name[locale]}</h1>
-                            <h1>{dataItem?.sale_price != 0 && dataItem?.sale_price ? <>
+                            <h1>{dataItem.name[locale]}</h1>
+                            <h1 style={{ width: "100px",textAlign:'center' }}>{dataItem?.sale_price != 0 && dataItem?.sale_price ? <>
                                 <span>
                                   {dataItem.sale_price} ฿
                                 </span>
@@ -153,7 +153,7 @@ const DetailProduct = (props) => {
                     <div className={style.note}>
                         <div className="form-group">
                             <label className="mb-2" htmlFor="note">Additional info</label>
-                            <textarea className="form-control" id="note" rows={3} defaultValue={"Example No Vegetable"} onChange={(e) => {onChangeNoteOrder(e)}} />
+                            <textarea className="form-control" id="note" rows={3} defaultValue={""} onChange={(e) => {onChangeNoteOrder(e)}} />
                         </div>
                     </div>
                     <div className={style.countNumber}>
