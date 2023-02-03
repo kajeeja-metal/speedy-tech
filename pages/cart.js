@@ -45,9 +45,11 @@ const Cart = (props) => {
             
             <div className="container_deal">
                 {
-                    dataContext?.transitions.products.map((item,i) => {
+                    dataContext?.transitions.products.length != 0 ? dataContext?.transitions.products.map((item,i) => {
                         return <DealItemEdit dealItem={item} index={i} />
-                    })
+                    }) : <div className="group_no_item">
+                        No Item 
+                    </div>
                 }
             </div>
             <div className={style.group_button_bottom}>
@@ -56,7 +58,7 @@ const Cart = (props) => {
                     <div className={style.price}>฿ {dataContext?.transitions.customer.priceTotal.toLocaleString('en-US')}</div>
                 </div>
                 <div className={style.group_addtocart}>
-                    <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>ส่งรายการ</div>
+                    <div className={[style.btn_addtocart,dataContext?.transitions.products.length == 0 && style.disabled].join(' ')}  onClick={()=> onClickAddOrder()}>ส่งรายการ</div>
                 </div>
            </div>
            <Modal key={1} show={showConfirm} onHide={()=> setShowConfirm(false)} size="sm"

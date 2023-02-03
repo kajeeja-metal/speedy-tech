@@ -76,6 +76,12 @@ body {
       }
     }
 }
+.group_no_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
 .title_name_modal{
     position: relative;
     text-align: center;

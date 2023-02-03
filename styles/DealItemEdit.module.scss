@@ -114,6 +114,10 @@
     align-items: center;
     justify-content:center;
 }
+.disabled{
+    background: #717171 !important;
+    pointer-events: none;
+}
 
 
 .group_button_bottom{
