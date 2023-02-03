@@ -26,11 +26,11 @@ const Index = (props) => {
       window.scrollTo(0, 0)
     }
   }, [Search])
-  useEffect(() => {
-    // refs.current[0].current.focus()
-    refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
-    // dataContext.setHeightCateory()
-  }, [dataContext.heightCateory]);
+  // useEffect(() => {
+  //   // refs.current[0].current.focus()
+  //   refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+  //   // dataContext.setHeightCateory()
+  // }, [dataContext.heightCateory]);
   useEffect(()=>{
     if(!isDetail){
       var body = document.body;
