@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import '@/styles/globals.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import App from 'next/app'

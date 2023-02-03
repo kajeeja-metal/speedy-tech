@@ -9,6 +9,7 @@ import style from "@/styles/DealItemEdit.module.scss"
 import { Modal } from 'react-bootstrap';
 import { useAuth } from '@/context/useAuth'
 import { addTransactions ,getProducts } from "@/services/getServices";
+import Swal from 'sweetalert2'
 const Cart = (props) => {
     const router = useRouter()
     const { locale } = router
@@ -17,6 +18,7 @@ const Cart = (props) => {
     const [dataItems, setDataItems] = useState([])
     
     const [showConfirm,setShowConfirm] = useState(false)
+    const [showAddtoCart,setShowAddtoCart] = useState(false)
     useEffect(()=>{
 
     },[])
@@ -25,20 +27,51 @@ const Cart = (props) => {
         
     }
     const onTransactions = async () =>{
-        let data = await addTransactions(dataContext.transitions)
-        dataContext.setTransitions({
-            customer : {
-                name : "",
-                tel : "",
-                line_uid : "",
-                note : "",
-                expected_date : "",
-                priceTotal : 0,
-                total : ""
-            },
-            products : []
+        let data = await addTransactions(dataContext.transitions).then((res) => {
+            if(res?.code == 200){
+                dataContext.setTransitions({
+                    customer : {
+                        name : "",
+                        tel : "",
+                        line_uid : "",
+                        note : "",
+                        expected_date : "",
+                        priceTotal : 0,
+                        total : ""
+                    },
+                    products : []
+                })
+                setShowConfirm(false)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    confirmButtonText: 'Close',
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        router.push('/')
+                    } else if (result.isDenied) {
+                        // Swal.fire('Changes are not saved', '', 'info')
+                    }
+                })
+            }else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to continue',
+                    icon: 'error',
+                    confirmButtonText: 'Close'
+                })
+            }
+            
+        }).catch((error) => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Do you want to continue',
+                icon: 'error',
+                confirmButtonText: 'Close'
+            })
         })
-        setShowConfirm(false)
     }
     return (
         <Pagemini  title={'รายการที่สั่ง'}>

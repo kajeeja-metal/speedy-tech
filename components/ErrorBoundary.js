@@ -22,8 +22,9 @@ class ErrorBoundary extends React.Component {
         // You can render any custom fallback UI
         return (
           <div className="d-flex justify-content-center align-items-center" style={{height: "100vh",flexDirection: "column"}}>
-            <h2 className="title-scan">Scan Now !!!</h2>
+            <h2 className="title-scan">Ezorder Scan Now !!!</h2>
             <div className="error-border">
+              <img src="/images/scan.png"></img>
             {/* <QRCode
               size={190}
               style={{ height: "auto" }}

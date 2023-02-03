@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
                     Cookies.set('table',JSON.stringify(data.data), { expires: 1 })
                     Router.push('/')
                 }else{
-                    // throw new Exception('Unauthorized', 401)
+                    setUser(data);
                 }
                 
                 // console.log("Got a token in the cookies, let's see if it is valid")
