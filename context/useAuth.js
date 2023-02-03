@@ -143,16 +143,36 @@ export const AuthProvider = ({ children }) => {
                     product_id : order._id,
                     qty: qty,
                     note : note,
-                    options : options
+                    options : options,
+                    order : order
                 }
             ]
         }))
         
         
     }
+    const editToOrder = (index,qty,plusmin) => {
+        // console.log('transitions',order._id,qty,options,note)
+        const sum = transitions.products.reduce((accumulator, object) => {
+            return accumulator + object.qty;
+        }, 0);
+        transitions.products[index] = {
+            ...transitions.products[index],
+            qty : qty
+        }
+        setTransitions((prev) => ({
+            customer : {
+                ...prev.customer,
+                total : sum + (plusmin)
+            },
+            products : transitions.products
+        }))
+        
+        
+    }
     console.log(transitions)
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder}}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder , editToOrder}}>
             {children}
         </AuthContext.Provider>
     )

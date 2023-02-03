@@ -22,6 +22,30 @@ export const getProducts = async () => {
       return data;
     } catch { }
 };
+export const addTransactions = async (data) => {
+  const token = axios.defaults.headers.Authorization;
+  try {
+    var config = {
+      method: 'POST',
+      url: baseURL + '/v1/transactions/order',
+      headers: {
+        Authorization: axios.defaults.headers.Authorization,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body : JSON.stringify(data)
+    };
+    let data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data;
+      });
+    return data;
+  } catch { }
+};
+
 export const getCategory = async () => {
     const token = axios.defaults.headers.Authorization;
     try {
@@ -42,6 +66,7 @@ export const getCategory = async () => {
       return data;
     } catch { }
 };
+
 export const getCategoryByID = async (id) => {
     const token = axios.defaults.headers.Authorization;
     try {

@@ -45,7 +45,7 @@ const Index = (props) => {
     setDetail(true)
   }
   const checkOrder = () => {
-    router.push('/order')
+    router.push('/cart')
   }
   return (
     <Pages isDetail={isDetail} setSearch={setSearch}>

@@ -7,10 +7,15 @@ import th from '@/locales/th'
 import DealItemEdit from "@/components/dealItemedit";
 import style from "@/styles/DealItemEdit.module.scss"
 import { Modal } from 'react-bootstrap';
+import { useAuth } from '@/context/useAuth'
+import { addTransactions } from "@/services/getServices";
 const Cart = (props) => {
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
+    const dataContext = useAuth()
+    const [dataItems, setDataItems] = useState([])
+    
     const [showConfirm,setShowConfirm] = useState(false)
     useEffect(()=>{
 
@@ -18,10 +23,18 @@ const Cart = (props) => {
     const onClickAddOrder = async () =>{
         setShowConfirm(true)
     }
+    const onTransactions = async () =>{
+        let status = await addTransactions()
+    }
     return (
         <Pagemini  title={'รายการที่สั่ง'}>
+            
             <div className="container_deal">
-                <DealItemEdit />
+                {
+                    dataContext?.transitions.products.map((item,i) => {
+                        return <DealItemEdit dealItem={item} index={i} />
+                    })
+                }
             </div>
             <div className={style.group_button_bottom}>
                 <div className={style.group_total}>
