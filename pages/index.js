@@ -44,7 +44,9 @@ const Index = (props) => {
     setDataItems(data)
     setDetail(true)
   }
-  // console.log(dataContext.transitions)
+  const checkOrder = () => {
+    router.push('/order')
+  }
   return (
     <Pages isDetail={isDetail} setSearch={setSearch}>
       
@@ -125,6 +127,14 @@ const Index = (props) => {
               )
             })
           }
+          {
+            dataContext.transitions.products.length != 0 && <div className={style.group_button + ' p-3'}>
+            <button className={style.addToCart} onClick={() => checkOrder()}>
+                <span>รายการที่สั่ง</span>
+                <span>{dataContext.transitions.customer.total} รายการ</span>
+            </button>
+        </div>
+          }
           
         </>
         :
@@ -189,6 +199,7 @@ const Index = (props) => {
               </div>
             </div>
           </section> */}
+          
         </>
       }
 
@@ -201,7 +212,7 @@ const Index = (props) => {
             className="modelUp"
           >
             
-            <DetailProduct setDetail={setDetail} dataItem={dataItems} />
+            <DetailProduct setDetail={setDetail} dataItem={dataItems} setDetails={setDetail} />
           </motion.div>
         }
       </AnimatePresence>

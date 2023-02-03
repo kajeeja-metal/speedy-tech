@@ -32,6 +32,11 @@ body {
     padding-left: 10px;
     color: #b5acac;
 }
+.loadingBlur {
+    filter: blur(7px);
+    pointer-events: none;
+    @include animation-delay(0.2);
+  }
 .group_back{
     position: absolute;
     font-size: 25px;
@@ -74,7 +79,7 @@ body {
 .arrow-up{
     font-size: 30px;
     position: fixed;
-    bottom: 20px;
+    bottom: 120px;
     right: 20px;
     color:#16284B;
     z-index: 999;
@@ -279,6 +284,34 @@ header .navBar .active{
  /* color of spining  */
  position: relative;
  
+}
+.error-border{
+    // border: 1px dotted #000;
+    border-radius: 50px;
+    padding: 30px 30px;
+}
+.title-scan{
+    padding: 15px 30px;
+    position: relative;
+    background: #000;
+    color: #fff;
+    border-radius: 50px;
+    letter-spacing: 2px;
+    font-size: 30px;
+    // &:after{
+    //     content: "";
+    //     position: absolute;
+    //     bottom: -24px;
+    //     left: 42%;
+    //     border:12px solid transparent;
+    //     border-top-color: #000;
+    //     border-right-color: transparent;
+    //     border-bottom-color: transparent;
+    //     border-left-color: transparent;
+    //     display: block;
+    //     width: 0px;
+    //     height: 0px;
+    // }
 }
 .AccordionCustom{
     padding: 0 15px;

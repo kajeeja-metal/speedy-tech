@@ -1,4 +1,5 @@
 import React from "react"
+import QRCode from "react-qr-code";
 class ErrorBoundary extends React.Component {
     constructor(props) {
       super(props)
@@ -20,8 +21,16 @@ class ErrorBoundary extends React.Component {
       if (this.state.hasError) {
         // You can render any custom fallback UI
         return (
-          <div className="d-flex justify-content-center align-items-center" style={{height: "100vh"}}>
-            <h2>Oops, there is an error!</h2>
+          <div className="d-flex justify-content-center align-items-center" style={{height: "100vh",flexDirection: "column"}}>
+            <h2 className="title-scan">Scan Now !!!</h2>
+            <div className="error-border">
+            {/* <QRCode
+              size={190}
+              style={{ height: "auto" }}
+              value={"error"}
+              viewBox={`0 0 100 100`} /> */}
+            </div>
+            
             {/* <button
               type="button"
               onClick={() => this.setState({ hasError: false })}

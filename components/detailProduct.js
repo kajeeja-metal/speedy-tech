@@ -161,7 +161,10 @@ const DetailProduct = (props) => {
                         <h1>{count}</h1>
                         <button className={style.btnCount} onClick={() => plusFunc()}>+</button>
                     </div>
-                    <div className={style.group_button + ' p-3'} onClick={() => {addToOrder(dataItem,count,options,note)}}>
+                    <div className={style.group_button + ' p-3'} onClick={() => {
+                        addToOrder(dataItem,count,options,note)
+                        props.setDetails(false)
+                        }}>
                         <button className={style.addToCart}>
                             <span>Add to cart</span>
                             <span>{dataItem?.sale_price != 0 && dataItem?.sale_price ? <>

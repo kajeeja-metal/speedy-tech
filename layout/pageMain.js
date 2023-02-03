@@ -21,7 +21,7 @@ const Pages = (props) => {
     const wheelTimeout = useRef()
     const Spinner = () => {
         const content = <div className="loading-pages">
-            {/* <svg
+            <svg
             width="80"
             height="80"
             viewBox="0 0 100 100"
@@ -48,26 +48,10 @@ const Pages = (props) => {
                 repeatCount="indefinite"
                 />
             </circle>
-            </svg> */}
+            </svg>
         </div>;
         return content
     }
-    const onWheel = e => {
-        // ... some code I needed ...
-    
-        // while wheel is moving, do not release the lock
-        clearTimeout(wheelTimeout.current)
-    
-        // flag indicating to lock page scrolling (setTimeout returns a number)
-        wheelTimeout.current = setTimeout(() => {
-          wheelTimeout.current = false
-        }, 300)
-    }
-    useEffect(() => {
-        const cancelWheel = e => wheelTimeout.current && e.preventDefault()
-        document.body.addEventListener('wheel', cancelWheel, {passive:false})
-        return () => document.body.removeEventListener('wheel', cancelWheel)
-    }, [])
     useEffect(() => {
         const routeChange = () => {
             // Temporary fix to avoid flash of unstyled content
@@ -104,13 +88,14 @@ const Pages = (props) => {
     },[]);
     return (
         <div className={props.isDetail == true ? 'contentArea hidden' : 'contentArea'}>
+            {/* {state.isLoading ? Spinner() : ''} */}
             <motion.div className={(state.isLoading ? 'loadingBlur' : '')} initial="initial" animate="animate" exit={{ opacity: 0 }}>
-            <Header setSearch={props.setSearch} />
-            <div className="contentArea_wrapper">
-                {props.children}
-            </div>
-            <div onClick={() => scrollToTop()} className={"arrow-up"}> <i className="fa fa-arrow-up"></i> </div>
-            <Footer />
+                <Header setSearch={props.setSearch} />
+                <div className="contentArea_wrapper">
+                    {props.children}
+                </div>
+                <div onClick={() => scrollToTop()} className={"arrow-up"}> <i className="fa fa-arrow-up"></i> </div>
+                <Footer />
             </motion.div>
         </div>
     )

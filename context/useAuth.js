@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
             const account = Cookies.get('table')
             setTransitions({
                 customer : {
-                    name : "asdasdasdasd",
+                    name : "",
                     tel : "",
                     line_uid : "",
                     note : "",
@@ -126,6 +126,9 @@ export const AuthProvider = ({ children }) => {
 
     const addToOrder = (order,qty,options,note) => {
         // console.log('transitions',order._id,qty,options,note)
+        const sum = transitions.products.reduce((accumulator, object) => {
+            return accumulator + object.qty;
+        }, 0);
         setTransitions((prev) => ({
             customer : {
                 name : "",
@@ -133,7 +136,7 @@ export const AuthProvider = ({ children }) => {
                 line_uid : "",
                 note : "",
                 expected_date : "",
-                total : ""
+                total : sum + qty
             },
             products : [
                 ...prev.products , {
@@ -144,7 +147,7 @@ export const AuthProvider = ({ children }) => {
                 }
             ]
         }))
-
+        
         
     }
     console.log(transitions)

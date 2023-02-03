@@ -108,3 +108,25 @@
         }
     }
 }
+.group_button{
+    position: sticky;
+    bottom: 0px;
+    background: #fff;
+    padding-bottom: 40px !important;
+    z-index: 9;
+    .addToCart {
+        // position: sticky;
+        // bottom: 40px;
+        border: unset;
+        outline: unset;
+        width: 100%;
+        background-color: #16284B;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 30px;
+        border-radius: 5px;
+        font-size: 26px;
+        letter-spacing: 0.5px;
+    }
+}
