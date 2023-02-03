@@ -47,16 +47,16 @@
         height: 100%;
         position: relative;
         padding: 0px 15px;
-        &::after{
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            background-color: #fff;
-            width: 48px;
-            height: 48px;
-            box-shadow: -13px 0px 6px -8px #efefef;
-        }
+        // &::after{
+        //     content: '';
+        //     position: absolute;
+        //     right: 0;
+        //     top: 0;
+        //     background-color: #fff;
+        //     width: 48px;
+        //     height: 48px;
+        //     box-shadow: -13px 0px 6px -8px #efefef;
+        // }
     }
 
     .groupNav {

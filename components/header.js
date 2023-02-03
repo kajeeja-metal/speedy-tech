@@ -89,7 +89,11 @@ const Header = (props) => {
                                 <Slider {...settings} ref={slider => (sliders = slider)}>
                                 {
                                     data?.products && data.products.map((item,i) =>{
-                                        return <Link className={style.navItem} to={`sec_${i}`} isDynamic={true} onSetActive={(e) => sliders.slickGoTo(i)} spy={true} smooth={true} exact='true' offset={-50} duration={50} onClick={(e) => sliders.slickGoTo(i)} >
+                                        return <Link className={style.navItem} to={`sec_${i}`} isDynamic={true} onSetActive={(e) => {
+                                            sliders.slickGoTo(i)
+                                            data.scrolLWithUseRef(i,e)
+                                        }
+                                            } spy={true} smooth={true} exact='true' offset={-50} duration={50} onClick={(e) => sliders.slickGoTo(i)} >
                                         <span>{item.category_name[locale]}</span>
                                     </Link>
                                     })

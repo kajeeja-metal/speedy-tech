@@ -28,7 +28,7 @@ const Index = (props) => {
   }, [Search])
   useEffect(() => {
     // refs.current[0].current.focus()
-    // refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
     // dataContext.setHeightCateory()
   }, [dataContext.heightCateory]);
   useEffect(()=>{
@@ -90,7 +90,6 @@ const Index = (props) => {
                   <div className={style.group}>
                     {
                       group_cat.menus.map((menu,i) => {
-                        menu.name[locale] == "ข้าวหน้าเนื้อ" && console.log(menu)
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
