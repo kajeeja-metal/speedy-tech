@@ -48,7 +48,6 @@ const DealItemEdit = (props) => {
                         },
                         products : dataContext.transitions.products
                     }))
-                    console.log(dataContext)
                 } else if (result.isDenied) {
                     // Swal.fire('Changes are not saved', '', 'info')
                 }
@@ -62,7 +61,14 @@ const DealItemEdit = (props) => {
             </div>
             <div className={style.group_dealitem}>
                 <div className={style.deal_name}>{props.dealItem.order.name[locale]}<span>฿ {props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price :  props.dealItem.order.price} x {count}</span></div>
-                <div className={style.deal_detail}>{props.dealItem.order.description[locale]}</div>
+                <div className={style.deal_detail}>
+                    {props.dealItem.order.description[locale]}
+                    
+                </div>
+                {props.dealItem.options_detail.map((addOn,i) =>{
+                         return  addOn.name[locale] +","
+                    })}
+                
                 <div className={style.bottom_deal_item}>
                     <div className={style.deal_price}>
                         <span>แก้ไข</span>

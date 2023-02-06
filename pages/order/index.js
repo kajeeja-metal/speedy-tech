@@ -7,13 +7,20 @@ import th from '@/locales/th'
 import DealItemOrder from "@/components/dealItemorder";
 import style from "@/styles/DealItemOrder.module.scss"
 import { Modal } from 'react-bootstrap';
+import { getHistory } from "@/services/getServices";
+import moment from 'moment';
 const Order = (props) => {
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
     const [showConfirm,setShowConfirm] = useState(false)
+    const [history,setHistory] = useState([])
+    const loadHistory = async () => {
+        let historys = await getHistory()
+        setHistory(historys.data)
+    }
     useEffect(()=>{
-
+        loadHistory()
     },[])
     const onClickAddOrder = async () =>{
         router.push('/checkout')
@@ -21,33 +28,44 @@ const Order = (props) => {
     }
     return (
         <Pagemini  title={'รายการที่สั่งทั้งหมด'}>
-            <div className={style.number_bill}>
-                หมายเลขบิล: <span>NV0029388902</span>
-            </div>
+            {/* {
+                history.langth != 0 && history.map((item,i) => {
+                    return (
+                        <>
+                        <div className={style.number_bill}>
+                            หมายเลขบิล: <span>{item.order_no}</span>
+                        </div>
+                        </>
+                    )
+                })
+            } */}
             <div className="height-100">
                 <div className="container_deal">
-                    <div className={style.order_all_time_bill}>
-                        <div className={style.order_time_bill}>
-                        <span>OD0000042</span>
-                            <span>13:28 น.</span>
-                        </div>
-                        <DealItemOrder />
-                        <DealItemOrder />
-                        <div className={style.total_number_bill}>
-                            <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿265.00</span>
-                        </div>
-                    </div>
-                    <div className={style.order_all_time_bill}>
-                        <div className={style.order_time_bill}>
-                        <span>OD0000042</span>
-                            <span>13:28 น.</span>
-                        </div>
-                        <DealItemOrder />
-                        <DealItemOrder />
-                        <div className={style.total_number_bill}>
-                            <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿265.00</span>
-                        </div>
-                    </div>
+                    {
+                        history.langth != 0 && history.map((item,i) => {
+                            return (
+                                <>
+                                <div className={style.order_all_time_bill}>
+                                    <div className={style.order_time_bill}>
+                                    <span>หมายเลขบิล: {item.order_no}</span>
+                                        <span>{moment(item.created_at).format('LT')}</span>
+                                    </div>
+                                    {
+                                        item.details.map((dataItem,i) => {
+                                            return <DealItemOrder dealItem={dataItem} />
+                                        })
+                                    }
+                                    
+                                    <div className={style.total_number_bill}>
+                                        <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿ {item.total_amount.toLocaleString('en-US')}</span>
+                                    </div>
+                                </div>
+                                <br/>
+                                </>
+                            )
+                        })
+                    }
+                    
                     
                 </div>
             </div>

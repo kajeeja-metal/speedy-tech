@@ -22,6 +22,46 @@ export const getProducts = async () => {
       return data;
     } catch { }
 };
+export const getHistory = async (id) => {
+  const token = axios.defaults.headers.Authorization;
+  try {
+    var config = {
+      method: 'get',
+      url: baseURL + '/v1/transaction/history/',
+      headers: {
+        Authorization: axios.defaults.headers.Authorization,
+      },
+    };
+    let data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data;
+      });
+    return data;
+  } catch { }
+};
+export const getHistoryByID = async (id) => {
+  const token = axios.defaults.headers.Authorization;
+  try {
+    var config = {
+      method: 'get',
+      url: baseURL + '/v1/transaction/history/'+id,
+      headers: {
+        Authorization: axios.defaults.headers.Authorization,
+      },
+    };
+    let data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data;
+      });
+    return data;
+  } catch { }
+};
 export const addTransactions = async (item) => {
   const token = axios.defaults.headers.Authorization;
   try {

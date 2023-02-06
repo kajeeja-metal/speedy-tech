@@ -13,6 +13,7 @@ const DetailProduct = (props) => {
     const { locale } = router
     const { addToOrder,setTransitions } = useAuth()
     const [options,setOptions] = useState([])
+    const [options_detail,setOptionsDetail] = useState([])
     const [note,setNote] = useState('')
     const t = locale === "en" ? en : th
     const [count, setCount] = useState(1);
@@ -31,7 +32,7 @@ const DetailProduct = (props) => {
         setCount(count - 1);
         setTotalPrice(priceItem * (count - 1))
     };
-    const onChangeAddtoOrder = (e,id,limit) => {
+    const onChangeAddtoOrder = (e,id,limit,data) => {
         const {name,value,checked} = e.target
         var checks = document.querySelectorAll("."+id);
         var max = limit;
@@ -42,12 +43,17 @@ const DetailProduct = (props) => {
         if (checkedChecks.length >= max + 1)
             return false;
         }
+        console.log(data)
         if(checked){
             setOptions((prev) => [...prev,value])
+            setOptionsDetail((prev) => [...prev,data])
+            setTotalPrice((prev) => prev + data.price)
         }else{
             const index = options.indexOf(value);
             const x = options.splice(index, 1);
             setOptions(options)
+            setOptionsDetail((prev) => [...prev,data])
+            setTotalPrice((prev) => prev - data.price)
         }
     }
     const onChangeNoteOrder = (e) => {
@@ -110,10 +116,10 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id={"radio_"+i} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit)}} />
+                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id={"radio_"+i} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limi,opt)}} />
                                                                         <label className="form-check-label" htmlFor={"radio_"+i}>
                                                                             <span>{opt.name[locale]}</span>
-                                                                            <span>{opt.price ? "฿" : ''}</span>
+                                                                            <span>{opt.price ? "+"+opt.price +" ฿" : ''}</span>
                                                                         </label>
                                                                     </div>
 
@@ -128,10 +134,10 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className={"form-check-input"+" check_" + attr.attribute._id} type="checkbox" id={"check_" + opt._id} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit)}} />
+                                                                        <input className={"form-check-input"+" check_" + attr.attribute._id} type="checkbox" id={"check_" + opt._id} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit,opt)}} />
                                                                         <label className="form-check-label" htmlFor={"check_" + opt._id}>
                                                                             <span>{opt.name[locale]}</span>
-                                                                            <span>{opt.price ? "฿" : ''} </span>
+                                                                            <span>{opt.price ? "+"+opt.price +" ฿" : ''} </span>
                                                                         </label>
                                                                     </div>
 
@@ -162,7 +168,7 @@ const DetailProduct = (props) => {
                         <button className={style.btnCount} onClick={() => plusFunc()}>+</button>
                     </div>
                     <div className={style.group_button + ' p-3'} onClick={() => {
-                        addToOrder(dataItem,count,options,note,totalPrice)
+                        addToOrder(dataItem,count,options,note,totalPrice,options_detail)
                         props.setDetails(false)
                         }}>
                         <button className={style.addToCart}>

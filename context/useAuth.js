@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }) => {
         // window.location.pathname = '/login'
     }
 
-    const addToOrder = (order,qty,options,note,totalPrice) => {
+    const addToOrder = (order,qty,options,note,totalPrice,options_detail) => {
         // console.log('transitions',order._id,qty,options,note)
         const sum = transitions.products.reduce((accumulator, object) => {
             return accumulator + object.qty;
@@ -150,6 +150,7 @@ export const AuthProvider = ({ children }) => {
                     qty: qty,
                     note : note,
                     options : options,
+                    options_detail : options_detail,
                     order : order
                 }
             ]
@@ -162,9 +163,9 @@ export const AuthProvider = ({ children }) => {
         const sum = transitions.products.reduce((accumulator, object) => {
             return accumulator + object.qty;
         }, 0);
-        const sumTotal = transitions.products.reduce((accumulator, object) => {
-            return accumulator + object.qty;
-        }, 0);
+        const sumTotal = transitions.products[index].options_detail.reduce((accumulator, object) => {
+            return accumulator + object.price;
+        }, 0)
         transitions.products[index] = {
             ...transitions.products[index],
             qty : qty
@@ -172,7 +173,7 @@ export const AuthProvider = ({ children }) => {
         setTransitions((prev) => ({
             customer : {
                 ...prev.customer,
-                priceTotal : parseInt(prev.customer.priceTotal) + (parseInt(order.sale_price != 0 ? order.sale_price : order.price) * plusmin),
+                priceTotal : parseInt(prev.customer.priceTotal) + ((parseInt(order.sale_price != 0 ? order.sale_price : order.price)+sumTotal) * plusmin),
                 total : sum + (plusmin)
             },
             products : transitions.products
