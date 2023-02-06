@@ -15,8 +15,14 @@ const Order = (props) => {
     const t = locale === "en" ? en : th
     const [showConfirm,setShowConfirm] = useState(false)
     const [history,setHistory] = useState([])
+    const [total,setTotal] = useState(0)
     const loadHistory = async () => {
         let historys = await getHistory()
+        const sumTotal = historys.data.reduce((accumulator, object) => {
+            return accumulator + object.total_amount;
+        }, 0);
+        setTotal(sumTotal)
+        console.log(sumTotal)
         setHistory(historys.data)
     }
     useEffect(()=>{
@@ -28,26 +34,19 @@ const Order = (props) => {
     }
     return (
         <Pagemini  title={'รายการที่สั่งทั้งหมด'}>
-            {/* {
-                history.langth != 0 && history.map((item,i) => {
-                    return (
-                        <>
-                        <div className={style.number_bill}>
-                            หมายเลขบิล: <span>{item.order_no}</span>
-                        </div>
-                        </>
-                    )
-                })
-            } */}
+            <div className={style.number_bill}>
+                หมายเลขบิล: <span>{history[0].order_booking}</span>
+            </div>
             <div className="height-100">
                 <div className="container_deal">
                     {
                         history.langth != 0 && history.map((item,i) => {
+                            
                             return (
                                 <>
                                 <div className={style.order_all_time_bill}>
                                     <div className={style.order_time_bill}>
-                                    <span>หมายเลขบิล: {item.order_no}</span>
+                                    <span>{item.order_no}</span>
                                         <span>{moment(item.created_at).format('LT')}</span>
                                     </div>
                                     {
@@ -73,7 +72,7 @@ const Order = (props) => {
             <div className={style.group_button_bottom}>
                 <div className={style.group_total}>
                     <div className={style.titletotal}>รวมค่าอาหาร</div>
-                    <div className={style.price}>฿265.00</div>
+                    <div className={style.price}>฿ {total.toLocaleString('en-US')}</div>
                 </div>
                 <div className={style.group_addtocart}>
                     <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>ชำระเงิน</div>

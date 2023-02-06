@@ -10,7 +10,6 @@ const DealItemOrder = (props) => {
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
-    console.log(dealItem)
 return (
     <div className={style.dealItem}>
         
