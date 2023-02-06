@@ -43,7 +43,6 @@ const DetailProduct = (props) => {
         if (checkedChecks.length >= max + 1)
             return false;
         }
-        console.log(data)
         if(checked){
             setOptions((prev) => [...prev,value])
             setOptionsDetail((prev) => [...prev,data])

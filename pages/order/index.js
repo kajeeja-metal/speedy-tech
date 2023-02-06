@@ -35,7 +35,7 @@ const Order = (props) => {
     return (
         <Pagemini  title={'รายการที่สั่งทั้งหมด'}>
             <div className={style.number_bill}>
-                หมายเลขบิล: <span>{history[0].order_booking}</span>
+                หมายเลขบิล: <span>{history[0]?.order_booking}</span>
             </div>
             <div className="height-100">
                 <div className="container_deal">
