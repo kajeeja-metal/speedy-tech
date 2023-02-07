@@ -12,6 +12,7 @@ import en from '@/locales/en'
 import th from '@/locales/th'
 import ScrollSpy from "react-ui-scrollspy";
 import Slider from "react-slick";
+import { animateScroll as scroll } from "react-scroll";
 const Index = (props) => {
   let refs = useRef(null);
   const [isDetail, setDetail] = useState(false)
@@ -38,6 +39,9 @@ const Index = (props) => {
     }
     
   },[isDetail])
+  const scrollToTop = () => {
+    scroll.scrollToTop(); 
+};
   const openModelDataItem = (data) => {
     var body = document.body;
     body.classList.add("lockPage");
@@ -127,14 +131,21 @@ const Index = (props) => {
               )
             })
           }
+          
+          <div className={style.group_button_all}>
+          <div onClick={() => scrollToTop()} className={"arrow-up"}> <i className="fa fa-arrow-up"></i> </div>
+          
           {
-            dataContext.transitions.products.length != 0 && <div className={style.group_button + ' p-3'}>
-            <button className={style.addToCart} onClick={() => checkOrder()}>
-                <span>รายการที่สั่ง</span>
-                <span>{dataContext.transitions.customer.total} รายการ</span>
-            </button>
-        </div>
+            dataContext.transitions.products.length != 0 && 
+            <div className={style.group_button + ' p-3'}>
+                <button className={style.addToCart} onClick={() => checkOrder()}>
+                    <span>รายการที่สั่ง</span>
+                    <span>{dataContext.transitions.customer.total} รายการ</span>
+                </button>
+            </div>
           }
+          
+          </div>
           
         </>
         :

@@ -48,11 +48,11 @@ const Header = (props) => {
                         <div className={style.table}><span>{data?.user?.table_name[locale]}</span></div>
                     </div>
                     <div className={style.active_all_menu}>
-                        <div>
-                            <i className="fal fa-bell" aria-hidden="true"></i>
+                        <div className={style.lang_change}>
+                            <img src="/images/ring-bell.png" width={20}></img>
                         </div>
-                        <div>
-                        <i className="fal fa-file-text" aria-hidden="true" onClick={() => {router.push('/order')}}></i>
+                        <div className={style.lang_change}>
+                        <img src="/images/Vector.png" width={20}  onClick={() => {router.push('/order')}}></img>
                         </div>
                         {
                             router.locale == "th" ? 
@@ -61,7 +61,7 @@ const Header = (props) => {
                             </div> 
                             : 
                             <div className={style.lang_change}>
-                                <img src="/images/thai.png" width={20}  onClick={() => handleRoute("th")}></img>
+                                <img src="/images/eng.png" width={20}  onClick={() => handleRoute("th")}></img>
                             </div>
                         }
                         

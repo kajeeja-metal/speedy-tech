@@ -130,3 +130,9 @@
         letter-spacing: 0.5px;
     }
 }
+.group_button_all{
+    position: relative;
+    position: sticky;
+    bottom: 0px;
+    z-index: 99;
+}

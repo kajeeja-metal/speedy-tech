@@ -32,8 +32,8 @@ const DetailProduct = (props) => {
         setCount(count - 1);
         setTotalPrice(priceItem * (count - 1))
     };
-    const onChangeAddtoOrder = (e,id,limit,data) => {
-        const {name,value,checked} = e.target
+    const onChangeAddtoOrder = (e,id,limit,data,cho_id) => {
+        const {name,value,checked,type} = e.target
         var checks = document.querySelectorAll("."+id);
         var max = limit;
         for (var i = 0; i < checks.length; i++)
@@ -43,17 +43,54 @@ const DetailProduct = (props) => {
         if (checkedChecks.length >= max + 1)
             return false;
         }
-        if(checked){
-            setOptions((prev) => [...prev,value])
-            setOptionsDetail((prev) => [...prev,data])
-            setTotalPrice((prev) => prev + data.price)
+        if(type != "radio"){
+            if(checked){
+                setOptions((prev) => [...prev,value])
+                setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data}])
+                setTotalPrice((prev) => prev + data.price)
+            }else{
+                const index = options.indexOf(value);
+                const x = options.splice(index, 1);
+                options_detail.splice(index, 1);
+                setOptions(options)
+                setOptionsDetail(options_detail)
+                setTotalPrice((prev) => prev - data.price)
+            }
         }else{
-            const index = options.indexOf(value);
-            const x = options.splice(index, 1);
-            setOptions(options)
-            setOptionsDetail((prev) => [...prev,data])
-            setTotalPrice((prev) => prev - data.price)
+            if(options_detail.filter((v) => v.ch_id == cho_id).length == 0){
+                setOptions((prev) => [...prev,value])
+                setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data}])
+                setTotalPrice((prev) => prev + data.price)
+            }else{
+                let indexOptions = options.indexOf(value);
+                options.splice(indexOptions, 1);
+                let index = options_detail.map(e => e.ch_id).indexOf(cho_id)
+                options_detail.splice(index, 1);
+                setOptionsDetail((prev) => [...options_detail,{ch_id:cho_id,...data}])
+                setOptions(options)
+                const sum = [...options_detail,{ch_id:cho_id,...data}].reduce((accumulator, object) => {
+                    return accumulator + object.price;
+                }, 0);
+                console.log(data ,[...options_detail,{ch_id:cho_id,...data}])
+                setTotalPrice((dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price) + sum)
+            }
+            
+            
+            // if(checked){
+            //     setOptions((prev) => [...prev,value])
+            //     setOptionsDetail((prev) => [...prev,data])
+            //     setTotalPrice((prev) => prev + data.price)
+            // }else{
+            //     const index = options.indexOf(value);
+            //     const x = options.splice(index, 1);
+            //     options_detail.splice(index, 1);
+            //     setOptions(options)
+            //     setOptionsDetail(options_detail)
+            //     setTotalPrice((prev) => prev - data.price)
+            // }
         }
+        
+        
     }
     const onChangeNoteOrder = (e) => {
         const {name,value} = e.target
@@ -115,7 +152,7 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id={"radio_"+i} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limi,opt)}} />
+                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id={"radio_"+i} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limi,opt,attr.attribute._id)}} />
                                                                         <label className="form-check-label" htmlFor={"radio_"+i}>
                                                                             <span>{opt.name[locale]}</span>
                                                                             <span>{opt.price ? "+"+opt.price +" ฿" : ''}</span>
@@ -133,7 +170,7 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className={"form-check-input"+" check_" + attr.attribute._id} type="checkbox" id={"check_" + opt._id} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit,opt)}} />
+                                                                        <input className={"form-check-input"+" check_" + attr.attribute._id} type="checkbox" id={"check_" + opt._id} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit,opt,attr.attribute._id)}} />
                                                                         <label className="form-check-label" htmlFor={"check_" + opt._id}>
                                                                             <span>{opt.name[locale]}</span>
                                                                             <span>{opt.price ? "+"+opt.price +" ฿" : ''} </span>

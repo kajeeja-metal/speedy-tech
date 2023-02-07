@@ -76,7 +76,6 @@ const Cart = (props) => {
     const Load = (data) => {
         dataContext.setTransitions(data)
         setDataItems(data)
-        console.log(dataContext.transitions.products)
     }
     
     return (

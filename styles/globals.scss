@@ -124,8 +124,8 @@ body {
   }
 .arrow-up{
     font-size: 30px;
-    position: fixed;
-    bottom: 120px;
+    position: absolute;
+    top: -65px;
     right: 20px;
     color: #fff;
     z-index: 999;

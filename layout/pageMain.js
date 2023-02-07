@@ -94,7 +94,7 @@ const Pages = (props) => {
                 <div className="contentArea_wrapper">
                     {props.children}
                 </div>
-                <div onClick={() => scrollToTop()} className={"arrow-up"}> <i className="fa fa-arrow-up"></i> </div>
+                
                 <Footer />
             </motion.div>
         </div>

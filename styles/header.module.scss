@@ -161,7 +161,7 @@ line-height: 1;
 }
 .active_all_menu{
     display: flex;
-    gap:15px;
+    gap:25px;
 }
 .lang_change{
 
@@ -189,4 +189,7 @@ line-height: 1;
     padding: 15px 0;
     overflow: hidden;
     padding-bottom: 0;
+}
+.lang_change{
+    line-height: 1;
 }

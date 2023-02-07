@@ -39,12 +39,16 @@ const DealItemEdit = (props) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     // router.push('/')
+                    let price = dataContext.transitions?.products[props.index]
+                    const sum = price.options_detail.reduce((accumulator, object) => {
+                        return accumulator + object.price;
+                    }, 0);
                     let remove = dataContext.transitions.products.splice(props.index, 1);
-
+                    
                     dataContext.setTransitions((prev) => ({
                         customer : {
                             ...prev.customer,
-                            priceTotal :prev.customer.priceTotal - (props.dealItem.order.sale_price != 0 ? (props.dealItem.order.sale_price * props.dealItem.qty)  :  (props.dealItem.order.price * props.dealItem.qty))
+                            priceTotal :prev.customer.priceTotal - (props.dealItem.order.sale_price != 0 ? ((props.dealItem.order.sale_price + sum) * props.dealItem.qty)  :  ((props.dealItem.order.price + sum) * props.dealItem.qty))
                         },
                         products : dataContext.transitions.products
                     }))
