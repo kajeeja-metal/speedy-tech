@@ -79,6 +79,7 @@
         .pic {
             border-radius: 10px;
             overflow: hidden;
+            position:relative;
             display: flex;
             img {
                 object-fit: cover;
