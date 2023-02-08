@@ -4,7 +4,7 @@ import Pages from '/layout/pageMain'
 import Link from 'next/link'
 import style from '@/styles/productList.module.scss'
 import DetailProduct from '@/components/detailProduct'
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/router'
@@ -99,7 +99,7 @@ const Index = (props) => {
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={110} height={110} objectFit={"cover"} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={120} height={120} objectFit={"cover"} />
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>

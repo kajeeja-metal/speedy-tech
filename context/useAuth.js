@@ -102,11 +102,13 @@ export const AuthProvider = ({ children }) => {
         loadUserFromCookies()
         console.log("transitions",transitions)
     }, [])
+    
     const scrolLWithUseRef = (e,i) => {
         
         setHeightCateory(e)
         setUpdateCount(e)
         console.log('scrolLWithUseRef',e,i)
+        i.defaultPrevented
         // divFive.current?.scrollIntoView({ block: "center", behavior: "smooth" });
     };
     const login = async (code) => {

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import style from '@/styles/header.module.scss'
 import Image from 'next/legacy/image'
-import { Link, animateScroll as scroll } from "react-scroll";
+import Scroll ,{ Link, animateScroll as scroll } from "react-scroll";
 
 import { useAuth } from '@/context/useAuth'
 import { useRouter } from 'next/router'
@@ -10,21 +10,24 @@ import th from '@/locales/th'
 import Slider from "react-slick";
 const Header = (props) => {
     const [isSearchBar, setSearchBar] = useState(false)
-    let sliders = useRef(null)
+    const sliderRef = useRef();
     const data = useAuth()
     const router = useRouter()
     const { locale } = router
+    const Events = Scroll.Events;
+    let scrollSpy = Scroll.scrollSpy;
     const t = locale === "en" ? en : th
     const settings = {
         className: "slider variable-width",
         centerMode: false,
         infinite: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         variableWidth: true,
-        afterChange: () =>
-        data.setSlideIndex((prev) => (prev + 1)),
+        afterChange: () => {
+            data.setSlideIndex((prev) => (prev + 1))
+        }
+        ,
         beforeChange: (current, next) => data.setSlideIndex(next)
       };
     const onChangeFunc = (e) => {
@@ -35,6 +38,37 @@ const Header = (props) => {
         setSearchBar(false)
         props.setSearch('')
     }
+    useEffect(() => {
+        // refs.current[0].current.focus()
+        // refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+        // dataContext.setHeightCateory()
+        sliderRef.current.slickGoTo(data.heightCateory)
+        scrollSpy.update();
+        return () => {
+            Events.scrollEvent.remove('begin');
+            Events.scrollEvent.remove('end');
+        }
+      }, [data.heightCateory]);
+    //   const createWheelStopListener = useCallback((element, callback, timeout) => {
+    //     const { pageYOffset, scrollY } = window;
+    //     var handle = null;
+    //     var onScroll = function() {
+    //         if (handle) {
+    //             clearTimeout(handle);
+    //         }
+    //         handle = setTimeout(callback, timeout || 200); // default 200 ms
+    //     };
+    //     window.addEventListener('wheel', onScroll);
+    //     return function() {
+    //       window.removeEventListener('wheel', onScroll);
+    //     };
+    // }, []);
+    //   useEffect(() => {
+    //     createWheelStopListener(window, function() {
+    //         console.log(data.updateCount)
+    //         // sliderRef.slickGoTo(data.heightCateory)
+    //   })
+    //   }, []);
     const handleRoute = (locale) => router.push(`${locale}${router.asPath}`, `${locale}${router.asPath}`, { locale: false })
     return (
         <>
@@ -86,19 +120,37 @@ const Header = (props) => {
                         <div className={style.navBar + ' navBar'}>
                             <div className={style.icon + ' icon_search'} onClick={(e) => setSearchBar(true)} />
                             <div className={style.groupNav}>
-                                <Slider {...settings} ref={slider => (sliders = slider)}>
+                                <Slider {...settings} ref={sliderRef}>
                                 {
                                     data?.products && data.products.map((item,i) =>{
-                                        return <Link className={style.navItem} to={`sec_${i}`} hashSpy={false} ignoreCancelEvents={true}
-                                        spyThrottle={0} isDynamic={true} onSetActive={(e) => {
-                                            sliders.slickGoTo(i)
+                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true}
+                                        smooth={true}
+                                        hashSpy={true}
+                                        offset={-80}
+                                        duration={50}
+                                        isDynamic={true}
+                                        ignoreCancelEvents={false}
+                                         onSetActive={(e) => {
                                             data.scrolLWithUseRef(i,e)
-                                        }
-                                            } spy={true} smooth={true} exact='true' offset={-50} duration={50} onClick={(e) => sliders.slickGoTo(i)} >
+                                        }}
+                                          onClick={(e) => {
+                                            sliderRef.current.slickGoTo(i)
+                                        }} >
                                         <span>{item.category_name[locale]}</span>
                                     </Link>
                                     })
                                 }
+                                {/* {
+                                    data?.products && data.products.map((item,i) =>{
+                                        return <div onClick={(e) => {
+                                            sliders.slickGoTo(i)
+                                            data.scrolLWithUseRef(i,e)
+                                            
+                                        }} className={style.navItem} to={`sec_${i}`} spy={true} smooth={true} exact='true' offset={-50} duration={50} >
+                                        <span>{item.category_name[locale]}</span>
+                                    </div>
+                                    })
+                                } */}
                                 </Slider>
                                 {/* {
                                     data?.products && data.products.map((item,i) =>{
