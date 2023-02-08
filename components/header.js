@@ -123,7 +123,7 @@ const Header = (props) => {
                                 <Slider {...settings} ref={sliderRef}>
                                 {
                                     data?.products && data.products.map((item,i) =>{
-                                        return <Link className={style.navItem} to={`sec_${i}`} spy={true}
+                                        return <Link className={style.navItem + ` ${data.heightCateory == i && " active"}`} to={`sec_${i}`} spy={true}
                                         smooth={true}
                                         hashSpy={true}
                                         offset={-80}

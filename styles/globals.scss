@@ -11,18 +11,24 @@
     transition: all $time + s ease-in-out;
   }
   .slick-active{
-    &.slick-current{
+    // &.slick-current{
+    //     background-color: #16284B;
+    //     color: #fff !important;
+    //     padding: 2px 0;
+    //     border-radius: 15px;
+    //     font-size: 22px;
+    //     a{
+    //         color: #fff  !important;
+    //     }
+    // }
+    .active {
         background-color: #16284B;
         color: #fff !important;
         padding: 2px 0;
         border-radius: 15px;
         font-size: 22px;
-        a{
-            color: #fff  !important;
-        }
+        color: #fff  !important;
     }
-    
-    
   }
 body {
     font-family: "HelvethaicaReg", sans-serif;
