@@ -7,6 +7,10 @@
         font-family: "HelvethaicaMed";
         padding-bottom: 15px;
     }
+    .group{
+        display: grid;
+        position: relative;
+    }
     .item {
         position: relative;
         margin-bottom: 15px;
@@ -16,6 +20,7 @@
             border-radius: 10px;
             overflow: hidden;
             position: relative;
+            display: flex;
             &:after{
                 content: "";
                 position: absolute;
