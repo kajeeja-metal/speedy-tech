@@ -71,6 +71,6 @@ export default {
     "howtochange":"วิธีการ เปลี่ยนสินค้า",
     "Q&A":"คำถามและคำตอบ",
     "error-with-status":"ไม่พบข้อมูลหน้านี้.",
-    "date":"วันที่ : "
-  
+    "date":"วันที่ : ",
+    "additional" : "ระบุข้อความ"
   }

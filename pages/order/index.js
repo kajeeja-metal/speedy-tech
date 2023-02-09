@@ -75,7 +75,7 @@ const Order = (props) => {
                     <div className={style.price}>฿ {total.toLocaleString('en-US')}</div>
                 </div>
                 <div className={style.group_addtocart}>
-                    <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>ชำระเงิน</div>
+                    <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>สรุปยอดเงิน</div>
                 </div>
            </div>
            <Modal key={1} show={showConfirm} onHide={()=> setShowConfirm(false)} size="sm"

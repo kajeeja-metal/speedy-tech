@@ -22,6 +22,7 @@ const Index = (props) => {
   const { locale } = router
   const t = locale === "en" ? en : th
   const [Search, setSearch] = useState('')
+  const [dataSearch , setDataSearch] = useState([])
   useEffect(() => {
     if (Search != '') {
       window.scrollTo(0, 0)
@@ -150,66 +151,42 @@ const Index = (props) => {
         </>
         :
         <>
-          {/* <section className={style.productList}>
+        <section className={style.productList} >
             <div className={style.group}>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={100} height={100} />
-                </div>
-                <div className={style.detail}>
-                  <div className={style.row}>
-                    <h1>Product Rec</h1>
-                    <p>Lorem Ipsum คือ เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่</p>
-                  </div>
-                  <div className={style.row}>
-                    <p className='txt-md text-dark'>990$</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={100} height={100} />
-                </div>
-                <div className={style.detail}>
-                  <div className={style.row}>
-                    <h1>Product Rec</h1>
-                    <p>Lorem Ipsum คือ เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่</p>
-                  </div>
-                  <div className={style.row}>
-                    <p className='txt-md text-dark'>990$</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={100} height={100} />
-                </div>
-                <div className={style.detail}>
-                  <div className={style.row}>
-                    <h1>Product Rec</h1>
-                    <p>Lorem Ipsum คือ เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่</p>
-                  </div>
-                  <div className={style.row}>
-                    <p className='txt-md text-dark'>990$</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.item} onClick={(e) => setDetail(true)}>
-                <div className={style.pic}>
-                  <Image src="/img/product.jpg" alt="" width={100} height={100} />
-                </div>
-                <div className={style.detail}>
-                  <div className={style.row}>
-                    <h1>Product Rec</h1>
-                    <p>Lorem Ipsum คือ เนื้อหาจำลองแบบเรียบๆ ที่ใช้กันในธุรกิจงานพิมพ์หรืองานเรียงพิมพ์ มันได้กลายมาเป็นเนื้อหาจำลองมาตรฐานของธุรกิจดังกล่าวมาตั้งแต่ศตวรรษที่</p>
-                  </div>
-                  <div className={style.row}>
-                    <p className='txt-md text-dark'>990$</p>
-                  </div>
-                </div>
-              </div>
+              {
+                dataContext.dataSearch.map((menu,i) => {
+                  return (
+                    <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
+                      <div className={style.pic}>
+                        <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={120} height={120} objectFit={"cover"} />
+                      </div>
+                      <div className={style.detail}>
+                        <div className={style.row}>
+                          <h1>{menu.name[locale]}</h1>
+                          <p>{menu.description[locale]}</p>
+                        </div>
+                        {menu.price != 0 && <div className={style.row}>
+                          <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu?.sale_price != 0 && menu?.sale_price ?  (
+                          <>
+                          <span>
+                            {menu.sale_price} ฿
+                          </span>
+                          <span  className='discount-price'>
+                            {
+                                menu.price
+                            } ฿
+
+                          </span>
+                          </>
+                        ) : menu.price + " ฿"}</p>
+                        </div>}
+                      </div>
+                    </div>
+                  )
+                })
+              }
             </div>
-          </section> */}
+          </section>
           
         </>
       }

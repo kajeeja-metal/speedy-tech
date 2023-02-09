@@ -74,6 +74,7 @@ export default {
     "howtoorder":"HOW TO ORDER",
     "howtochange":"RETURN & EXCHANGE",
     "Q&A":"QUESTION & ANWSER",
-    "date":"Date : "
+    "date":"Date : ",
+    "additional" : "Specify text"
   
   } 

@@ -32,8 +32,8 @@ const DealItemEdit = (props) => {
                 text: 'คุณต้องการยกเลิก......ใช่ไหม?',
                 icon: 'error',
                 showDenyButton: true,
-                confirmButtonText: 'Save',
-                denyButtonText: `Don't save`,
+                confirmButtonText: 'ยืนยัน',
+                denyButtonText: `ยกเลิก`,
                 reverseButtons: true
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
@@ -66,11 +66,20 @@ const DealItemEdit = (props) => {
             <div className={style.group_dealitem}>
                 <div className={style.deal_name}>{props.dealItem.order.name[locale]}<span>฿ {props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price :  props.dealItem.order.price} x {count}</span></div>
                 <div className={style.deal_detail}>
-                    {props.dealItem.order.description[locale]}
+                    {props.dealItem.note}
                     
                 </div>
                 {props.dealItem.options_detail.map((addOn,i) =>{
-                         return  addOn.name[locale] +","
+                         return  (
+                            <>
+                            {
+                                addOn.name[locale]
+                            }
+                            {
+                                props.dealItem.options_detail.length != i+1 && ","
+                            }
+                            </>
+                        )
                     })}
                 
                 <div className={style.bottom_deal_item}>

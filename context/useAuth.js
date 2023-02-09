@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
     })
     const [idCate,setIdCate ] = useState(null)
     const [heightCateory,setHeightCateory ] = useState(0)
+    const [dataSearch,setDataSearch ] = useState([])
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         async function loadUserFromCookies() {
@@ -203,7 +204,7 @@ export const AuthProvider = ({ children }) => {
         }))
     }
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder , editToOrder}}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder , editToOrder ,dataSearch,setDataSearch }}>
             {children}
         </AuthContext.Provider>
     )

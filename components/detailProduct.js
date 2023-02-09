@@ -38,23 +38,34 @@ const DetailProduct = (props) => {
         var max = limit;
         for (var i = 0; i < checks.length; i++)
         checks[i].onclick = selectiveCheck;
+        var checkedCheckss = document.querySelectorAll("."+id+":checked");
         function selectiveCheck (event) {
-        var checkedChecks = document.querySelectorAll("."+id+":checked");
-        if (checkedChecks.length >= max + 1)
-            return false;
+            var checkedChecks = document.querySelectorAll("."+id+":checked");
+            if (checkedChecks.length >= max + 1){
+                return false
+            }
         }
         if(type != "radio"){
-            if(checked){
+            if(checked && checkedCheckss.length <= limit){
                 setOptions((prev) => [...prev,value])
                 setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data}])
                 setTotalPrice((prev) => prev + data.price)
             }else{
-                const index = options.indexOf(value);
-                const x = options.splice(index, 1);
-                options_detail.splice(index, 1);
-                setOptions(options)
-                setOptionsDetail(options_detail)
-                setTotalPrice((prev) => prev - data.price)
+                if(checkedCheckss.length <= limit){
+                    const index = options.indexOf(value);
+                    const x = options.splice(index, 1);
+                    options_detail.splice(index, 1);
+                    setOptions(options)
+                    setOptionsDetail(options_detail)
+                    setTotalPrice((prev) => prev - data.price)
+                    
+                }else{
+                    if(checkedCheckss.length >= limit){
+                        document.getElementsByClassName("check_" + cho_id)
+                        console.log(document.getElementsByClassName("check_" + cho_id))
+                    }
+                    return false
+                }
             }
         }else{
             if(options_detail.filter((v) => v.ch_id == cho_id).length == 0){
@@ -195,7 +206,7 @@ const DetailProduct = (props) => {
                     <div className={style.note}>
                         <div className="form-group">
                             <label className="mb-2" htmlFor="note">Additional info</label>
-                            <textarea className="form-control" id="note" rows={3} defaultValue={""} onChange={(e) => {onChangeNoteOrder(e)}} />
+                            <textarea className="form-control" id="note" rows={3} placeholder={t.additional} defaultValue={""} onChange={(e) => {onChangeNoteOrder(e)}} />
                         </div>
                     </div>
                     <div className={style.countNumber}>

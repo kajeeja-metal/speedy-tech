@@ -132,6 +132,12 @@ body {
     align-items: flex-start;
     padding-bottom: 95px;
   }
+  .swal2-html-container{
+    font-size: 24px !important;
+  }
+  .swal2-actions button {
+    font-size: 21px !important;
+  }
 .arrow-up{
     font-size: 30px;
     position: absolute;
@@ -148,6 +154,10 @@ body {
     justify-content: center;
     border-radius: 26px;
     border: transparent;
+    opacity: 0.8;
+    &:active { 
+        opacity: 1;
+    }
 }
 ::-webkit-scrollbar {
     width: 5px;

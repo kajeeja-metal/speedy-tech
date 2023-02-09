@@ -49,8 +49,9 @@ const Cart = (props) => {
                     confirmButtonText: 'Close',
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
+                    router.push('/order')
                     if (result.isConfirmed) {
-                        router.push('/')
+                        router.push('/order')
                     } else if (result.isDenied) {
                         // Swal.fire('Changes are not saved', '', 'info')
                     }

@@ -32,7 +32,14 @@ const Header = (props) => {
       };
     const onChangeFunc = (e) => {
         const { name, value } = e.target
+        let array = []
+        let dataSearch = data.products.map((e) => e.menus)
+        let datas = array.concat(...dataSearch).filter((item) => {
+            return item.name[locale].toLowerCase().match(value.toLowerCase())
+        })
         props.setSearch(value)
+        data.setDataSearch(datas)
+
     }
     const backBtn = (e) => {
         setSearchBar(false)
@@ -115,6 +122,10 @@ const Header = (props) => {
                         <div className={style.searchBar}>
                             <div className={style.icon + ' icon_search'} />
                             <input type={'text'} placeholder={'Search menu'} onChange={(e) => onChangeFunc(e)} />
+                            <div className={style.icon_close } onClick={(e) => {
+                                setSearchBar(false)
+                                props.setSearch('')
+                                }}>✕</div>
                         </div>
                         :
                         <div className={style.navBar + ' navBar'}>
