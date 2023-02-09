@@ -50,6 +50,16 @@ const DetailProduct = (props) => {
                 setOptions((prev) => [...prev,value])
                 setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data}])
                 setTotalPrice((prev) => prev + data.price)
+                if(checkedCheckss.length == limit){
+                    var arr = Array.from(document.getElementsByClassName("check_" + cho_id));
+                    arr.map((checkbox) =>  {
+                        if(!checkbox.checked){
+                           checkbox.disabled = true 
+                        }
+                        
+                    })
+                    console.log(arr)
+                }
             }else{
                 if(checkedCheckss.length <= limit){
                     const index = options.indexOf(value);
@@ -60,10 +70,7 @@ const DetailProduct = (props) => {
                     setTotalPrice((prev) => prev - data.price)
                     
                 }else{
-                    if(checkedCheckss.length >= limit){
-                        document.getElementsByClassName("check_" + cho_id)
-                        console.log(document.getElementsByClassName("check_" + cho_id))
-                    }
+                   
                     return false
                 }
             }
