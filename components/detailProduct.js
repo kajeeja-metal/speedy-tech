@@ -174,7 +174,7 @@ const DetailProduct = (props) => {
                 </div>
                 <div className={style.scrollDtail}>
                     <div className={style.pic}>
-                        <Image src={dataItem?.image_url ? dataItem?.image_url : "/img/product.jpg"} alt="" width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
+                        <Image src={dataItem?.image_url ? dataItem?.image_url : "/images/blur.png"} alt="" width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
                     </div>
                     <div className={style.nameProduct}>
                         <div className={style.row}>

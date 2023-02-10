@@ -10,11 +10,12 @@ const DealItemOrder = (props) => {
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
+    console.log(dealItem)
 return (
     <div className={style.dealItem}>
         
             <div className={style.dealImages}>
-                <Image src={dealItem?.product?.image_url ? dealItem?.product?.image_url : "/img/product.jpg"} width={70} height={70}></Image>
+                <Image src={dealItem?.product?.image_url ? dealItem?.product?.image_url : "/images/blur.png"} width={70} height={70}></Image>
             </div>
             <div className={style.group_dealitem}>
                 <div className={style.deal_name}>{dealItem.product.name[locale]} <span>฿ {dealItem.unit_price.toLocaleString('en-US')} x {dealItem.qty}</span></div>
@@ -24,8 +25,8 @@ return (
                     })
                 }</div>
                 <div className={style.bottom_deal_item}>
-                    <div className={[style.deal_status,style.bottom_deal_item].join(' ')}>
-                        <span>กำลังรอ</span>
+                    <div className={[style.deal_status,style.bottom_deal_item].join(' ')} style={{backgroundColor : (dealItem.status == "PENDING" && "#FFA800" || dealItem.status == "PROCESSING" && "#00D42F" || dealItem.status == "REJECTED" && "#FF0000")}}>
+                        <span>{dealItem.status}</span>
                     </div>
                 </div>
                 

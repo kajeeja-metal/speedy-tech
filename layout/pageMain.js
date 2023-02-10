@@ -3,11 +3,14 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 
 import dynamic from 'next/dynamic'
-import { motion } from "framer-motion";
+import { AnimatePresence,motion } from "framer-motion";
 import Router ,{useRouter}from 'next/router'
+import { useAuth } from '@/context/useAuth';
 import en from '@/locales/en'
 import th from '@/locales/th'
+import DetailProduct from '@/components/detailProduct'
 import { Link, animateScroll as scroll } from "react-scroll";
+import Noti from "@/components/Noti";
 const Pages = (props) => {
     const router = useRouter()
     const { locale } = router
@@ -18,6 +21,7 @@ const Pages = (props) => {
     const[state,setState] = useState({
         loading : false
     })
+    let dataContext = useAuth()
     const wheelTimeout = useRef()
     const Spinner = () => {
         const content = <div className="loading-pages">
@@ -86,6 +90,7 @@ const Pages = (props) => {
             setState({ isLoading: false });
           });
     },[]);
+    console.log(dataContext)
     return (
         <div className={props.isDetail == true ? 'contentArea hidden' : 'contentArea'}>
             {/* {state.isLoading ? Spinner() : ''} */}
@@ -97,6 +102,20 @@ const Pages = (props) => {
                 
                 <Footer />
             </motion.div>
+            <AnimatePresence initial={false}>
+            {dataContext.emp &&
+                <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="modelUp"
+                >
+                
+                <Noti />
+
+                </motion.div>
+            }
+            </AnimatePresence>
         </div>
     )
 }

@@ -69,7 +69,7 @@ const Index = (props) => {
                       return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"}  alt={menu?.image_url} width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} blurDataURL={'/images/blur.png'} placeholder="blur" alt={menu?.image_url} width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
                             </div>
                             <div className={style.detail}>
                               <h1>{menu.name[locale]}</h1>
@@ -100,7 +100,7 @@ const Index = (props) => {
                         return (
                           <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                             <div className={style.pic}>
-                              <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={120} height={120} objectFit={"cover"} />
+                              <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} blurDataURL={'/images/blur.png'} placeholder="blur" alt="" width={120} height={120} objectFit={"cover"} />
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>
@@ -158,7 +158,7 @@ const Index = (props) => {
                   return (
                     <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
                       <div className={style.pic}>
-                        <Image src={menu?.image_url ? menu?.image_url : "/img/product.jpg"} alt="" width={120} height={120} objectFit={"cover"} />
+                        <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} alt="" width={120} height={120} objectFit={"cover"} />
                       </div>
                       <div className={style.detail}>
                         <div className={style.row}>
@@ -204,6 +204,7 @@ const Index = (props) => {
           </motion.div>
         }
       </AnimatePresence>
+      
 
 
     </Pages>

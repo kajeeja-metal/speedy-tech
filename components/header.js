@@ -91,7 +91,7 @@ const Header = (props) => {
                     </div>
                     <div className={style.active_all_menu}>
                         <div className={style.lang_change}>
-                            <img src="/images/ring-bell.png" width={20}></img>
+                            <img src="/images/ring-bell.png" width={20} onClick={() => {data.setEmp(true)}}></img>
                         </div>
                         <div className={style.lang_change}>
                         <img src="/images/Vector.png" width={20}  onClick={() => {router.push('/order')}}></img>
