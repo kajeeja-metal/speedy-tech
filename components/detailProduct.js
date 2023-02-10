@@ -18,7 +18,8 @@ const DetailProduct = (props) => {
     const t = locale === "en" ? en : th
     const [count, setCount] = useState(1);
     const [totalPrice, setTotalPrice] = useState(dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price);
-
+    const [req , setReq] = useState(dataItem.attributes)
+    const [enabled, setEnabled] = useState(true)
     const plusFunc = () => {
         let priceItem = dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price
         setCount(count + 1);
@@ -45,6 +46,7 @@ const DetailProduct = (props) => {
                 return false
             }
         }
+
         if(type != "radio"){
             if(checked && checkedCheckss.length <= limit){
                 setOptions((prev) => [...prev,value])
@@ -54,11 +56,11 @@ const DetailProduct = (props) => {
                     var arr = Array.from(document.getElementsByClassName("check_" + cho_id));
                     arr.map((checkbox) =>  {
                         if(!checkbox.checked){
+                           
                            checkbox.disabled = true 
                         }
                         
                     })
-                    console.log(arr)
                 }
             }else{
                 if(checkedCheckss.length <= limit){
@@ -68,9 +70,14 @@ const DetailProduct = (props) => {
                     setOptions(options)
                     setOptionsDetail(options_detail)
                     setTotalPrice((prev) => prev - data.price)
-                    
+                    var arr = Array.from(document.getElementsByClassName("check_" + cho_id));
+                    arr.map((checkbox) =>  {
+                        if(!checkbox.checked){
+                           checkbox.disabled = false 
+                        }
+                    })
                 }else{
-                   
+                    
                     return false
                 }
             }
@@ -89,33 +96,31 @@ const DetailProduct = (props) => {
                 const sum = [...options_detail,{ch_id:cho_id,...data}].reduce((accumulator, object) => {
                     return accumulator + object.price;
                 }, 0);
-                console.log(data ,[...options_detail,{ch_id:cho_id,...data}])
                 setTotalPrice((dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price) + sum)
             }
-            
-            
-            // if(checked){
-            //     setOptions((prev) => [...prev,value])
-            //     setOptionsDetail((prev) => [...prev,data])
-            //     setTotalPrice((prev) => prev + data.price)
-            // }else{
-            //     const index = options.indexOf(value);
-            //     const x = options.splice(index, 1);
-            //     options_detail.splice(index, 1);
-            //     setOptions(options)
-            //     setOptionsDetail(options_detail)
-            //     setTotalPrice((prev) => prev - data.price)
-            // }
         }
-        
-        
     }
     const onChangeNoteOrder = (e) => {
         const {name,value} = e.target
         setNote(value)
     }
     useEffect(() => {
-    },[])
+        let checkLimit = dataItem.attributes.map(e => e.attribute)
+        let checkSelectOptions = options_detail.map(e => e.ch_id)
+        checkLimit.filter((limit) => limit.choice_min >= 0)
+        console.log(checkLimit.length)
+        setEnabled(checkLimit.length > 0)
+        console.log(checkLimit , checkSelectOptions )
+    },[options_detail])
+
+    // useEffect(() => {
+    //     console.log(dataItem.attributes.map(e => e.attribute).filter(v => v.choice_min == 0).length <= 0)
+    //     if(dataItem.attributes.map(e => e.attribute).filter(v => v.choice_min == 0).length <= 0){
+    //         setEnabled(false)
+    //     }else{
+    //         setEnabled(true)
+    //     }
+    // },[dataItem])
     return (
         <>
             <div className={style.overlay} onClick={(e) => props.setDetail(false)} ></div>
@@ -159,7 +164,7 @@ const DetailProduct = (props) => {
                                 return (
                                     <Accordion.Item eventKey={i}>
                                         <Accordion.Header>
-                                            <p className={style.subMenu}> {attr.attribute.name[locale]} <span>Select at least {attr.attribute.choice_limit} item</span></p>
+                                            <p className={style.subMenu}> {attr.attribute.choice_min > 0  && <span style={{color: "red",fontSize : '20px'}}>* </span>}{attr.attribute.name[locale]} <span style={{display : "block"}}>Select at least {attr.attribute.choice_limit} item</span></p>
                                         </Accordion.Header>
                                         <Accordion.Body>
                                             {
@@ -221,11 +226,13 @@ const DetailProduct = (props) => {
                         <h1>{count}</h1>
                         <button className={style.btnCount} onClick={() => plusFunc()}>+</button>
                     </div>
-                    <div className={style.group_button + ' p-3'} onClick={() => {
-                        addToOrder(dataItem,count,options,note,totalPrice,options_detail)
-                        props.setDetails(false)
+                    <div className={style.group_button + ' p-3 ' + enabled} disabled={enabled} onClick={() => {
+                        if(!enabled) {
+                            addToOrder(dataItem,count,options,note,totalPrice,options_detail)
+                            props.setDetails(false)
+                        }
                         }}>
-                        <button className={style.addToCart}>
+                        <button className={style.addToCart +' addToCart'} disabled={enabled}>
                             <span>Add to cart</span>
                             <span>{dataItem?.sale_price != 0 && dataItem?.sale_price ? <>
                                   {totalPrice} ฿

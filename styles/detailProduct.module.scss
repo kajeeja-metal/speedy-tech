@@ -130,4 +130,17 @@
     bottom: 0px;
     background: #fff;
     padding-bottom: 40px !important;
+    &::disabled{
+        background-color: #efefef !important; 
+        button{
+           background-color: #efefef !important; 
+        }
+        
+    }
+    button{
+        &::disabled{
+            background-color: #efefef !important; 
+            
+        }
+     }
 }

@@ -141,8 +141,8 @@
  @include font-regular;
 }
 .price{
-color: #FB2A10;
-@include font-bold;
-font-size: 26px;
-line-height: 1.2;
+    color: #FB2A10;
+    @include font-bold;
+    font-size: 26px;
+    line-height: 1.2;
 }
