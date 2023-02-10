@@ -74,7 +74,7 @@
         }
     }
     .navItem {
-        padding: 2px 15px;
+        // padding: 2px 15px;
         border-radius: 15px;
         font-size: 22px;
         // white-space: nowrap;
@@ -84,6 +84,7 @@
         position: relative;
         span{
             // white-space: nowrap;
+            margin: 10px;
         }
         &:after{
             position: absolute;

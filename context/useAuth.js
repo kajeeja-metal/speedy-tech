@@ -136,7 +136,9 @@ export const AuthProvider = ({ children }) => {
         const sum = transitions.products.reduce((accumulator, object) => {
             return accumulator + object.qty;
         }, 0);
-        
+        const sumTotal = options_detail.reduce((accumulator, object) => {
+            return accumulator + object.price;
+        }, 0)
         setTransitions((prev) => ({
             customer : {
                 name : "",
@@ -152,6 +154,7 @@ export const AuthProvider = ({ children }) => {
                     product_id : order._id,
                     qty: qty,
                     note : note,
+                    sumTotal : sumTotal,
                     options : options,
                     options_detail : options_detail,
                     order : order
@@ -171,6 +174,7 @@ export const AuthProvider = ({ children }) => {
         }, 0)
         transitions.products[index] = {
             ...transitions.products[index],
+            sumTotal : sumTotal,
             qty : qty
         }
         setTransitions((prev) => ({

@@ -19,10 +19,11 @@ const Header = (props) => {
     const t = locale === "en" ? en : th
     const settings = {
         className: "slider variable-width",
-        centerMode: false,
+        dots: true,
         infinite: false,
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        centerMode: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
         variableWidth: true,
         afterChange: () => {
             data.setSlideIndex((prev) => (prev + 1))

@@ -33,7 +33,7 @@ const DetailProduct = (props) => {
         setCount(count - 1);
         setTotalPrice(priceItem * (count - 1))
     };
-    const onChangeAddtoOrder = (e,id,limit,data,cho_id) => {
+    const onChangeAddtoOrder = (e,id,limit,data,cho_id,choice_limit) => {
         const {name,value,checked,type} = e.target
         var checks = document.querySelectorAll("."+id);
         var max = limit;
@@ -46,12 +46,18 @@ const DetailProduct = (props) => {
                 return false
             }
         }
-
+        
+        let dataOpenis = []
         if(type != "radio"){
             if(checked && checkedCheckss.length <= limit){
                 setOptions((prev) => [...prev,value])
-                setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data}])
+                setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data,min : choice_limit}])
                 setTotalPrice((prev) => prev + data.price)
+                // let checkSelectOptions = [...options_detail,{ch_id:cho_id,...data,min : choice_limit}].map(e => e.ch_id)
+                // const counts = {};
+                // checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+                // console.log(counts)
+                // console.log('if',counts)
                 if(checkedCheckss.length == limit){
                     var arr = Array.from(document.getElementsByClassName("check_" + cho_id));
                     arr.map((checkbox) =>  {
@@ -63,43 +69,68 @@ const DetailProduct = (props) => {
                     })
                 }
             }else{
-                if(checkedCheckss.length <= limit){
-                    const index = options.indexOf(value);
-                    const x = options.splice(index, 1);
-                    options_detail.splice(index, 1);
-                    setOptions(options)
-                    setOptionsDetail(options_detail)
-                    setTotalPrice((prev) => prev - data.price)
-                    var arr = Array.from(document.getElementsByClassName("check_" + cho_id));
-                    arr.map((checkbox) =>  {
-                        if(!checkbox.checked){
-                           checkbox.disabled = false 
-                        }
-                    })
-                }else{
-                    
-                    return false
-                }
+                const index = options.indexOf(value);
+                const x = options.splice(index, 1);
+                
+                let indexs = options_detail.map(e => e.ch_id).indexOf(cho_id)
+                options_detail.splice(indexs, 1);
+                setOptions(options)
+                setOptionsDetail((prev) => [...prev])
+                setTotalPrice((prev) => prev - data.price)
+                // let checkSelectOptions = options_detail.map(e => e.ch_id)
+                // const counts = {};
+                // checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+                // console.log('else',counts)
+                var arr = Array.from(document.getElementsByClassName("check_" + cho_id));
+                arr.map((checkbox) =>  {
+                    if(!checkbox.checked){
+                        checkbox.disabled = false 
+                    }
+                })
             }
+            
         }else{
-            if(options_detail.filter((v) => v.ch_id == cho_id).length == 0){
+            let indexs = options_detail.map(e => e.ch_id).indexOf(cho_id)
+            if(indexs < 0){
                 setOptions((prev) => [...prev,value])
-                setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data}])
+                setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data,min : choice_limit}])
                 setTotalPrice((prev) => prev + data.price)
             }else{
-                let indexOptions = options.indexOf(value);
-                options.splice(indexOptions, 1);
-                let index = options_detail.map(e => e.ch_id).indexOf(cho_id)
-                options_detail.splice(index, 1);
-                setOptionsDetail((prev) => [...options_detail,{ch_id:cho_id,...data}])
-                setOptions(options)
-                const sum = [...options_detail,{ch_id:cho_id,...data}].reduce((accumulator, object) => {
+                options_detail.splice(indexs, 1);
+                setOptionsDetail((prev) => [...options_detail,{ch_id:cho_id,...data,min : choice_limit}])
+                const sum = [...options_detail,{ch_id:cho_id,...data,min : choice_limit}].reduce((accumulator, object) => {
                     return accumulator + object.price;
                 }, 0);
                 setTotalPrice((dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price) + sum)
+                
             }
+            
         }
+        let checkLimit = dataItem.attributes.map(e => e.attribute)
+        let checkSelectOptions = [...options_detail,{ch_id:cho_id,...data,min : choice_limit}].map(e => e.ch_id)
+        const counts = {};
+        checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+        // const counts = {};
+        // checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+        let disable_count_limit = checkLimit.filter((limit) => {
+            if(counts[limit._id] == undefined){
+                counts[limit._id] = 0 
+            }
+            return limit.choice_min > counts[limit._id]
+        })
+        setEnabled(disable_count_limit.length != 0)
     }
+    // useEffect(() => {
+    //     let checkLimit = dataItem.attributes.map(e => e.attribute)
+        
+    //     let checkSelectOptions = options_detail.map(e => e.ch_id)
+    //     const counts = {};
+    //     checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+    //     let disable_count_limit = checkLimit.filter((limit) => limit.choice_min > counts[limit._id])
+        
+    //     console.log('checkENd',counts)
+    //     setEnabled(disable_count_limit.length != 0)
+    // },[options_detail])
     const onChangeNoteOrder = (e) => {
         const {name,value} = e.target
         setNote(value)
@@ -107,11 +138,18 @@ const DetailProduct = (props) => {
     useEffect(() => {
         let checkLimit = dataItem.attributes.map(e => e.attribute)
         let checkSelectOptions = options_detail.map(e => e.ch_id)
-        checkLimit.filter((limit) => limit.choice_min >= 0)
-        console.log(checkLimit.length)
-        setEnabled(checkLimit.length > 0)
-        console.log(checkLimit , checkSelectOptions )
-    },[options_detail])
+        const counts = {};
+        checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+        let limit = checkLimit.filter((limit) => {
+            if(counts[limit._id] == undefined){
+                counts[limit._id] = 0 
+            }
+            return limit.choice_min > counts[limit._id]
+        })
+        // checkSelectOptions.filter((choice) => choice == )
+        
+        setEnabled(limit.length > 0)
+    },[dataItem,options_detail])
 
     // useEffect(() => {
     //     console.log(dataItem.attributes.map(e => e.attribute).filter(v => v.choice_min == 0).length <= 0)
@@ -164,7 +202,7 @@ const DetailProduct = (props) => {
                                 return (
                                     <Accordion.Item eventKey={i}>
                                         <Accordion.Header>
-                                            <p className={style.subMenu}> {attr.attribute.choice_min > 0  && <span style={{color: "red",fontSize : '20px'}}>* </span>}{attr.attribute.name[locale]} <span style={{display : "block"}}>Select at least {attr.attribute.choice_limit} item</span></p>
+                                            <p className={style.subMenu}> {attr.attribute.choice_min > 0  && <span style={{color: "red",fontSize : '20px'}}>* </span>}{attr.attribute.name[locale]} <span style={{display : "block"}}>Select at least {attr.attribute.choice_min} item</span></p>
                                         </Accordion.Header>
                                         <Accordion.Body>
                                             {
@@ -175,7 +213,7 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id={"radio_"+i} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limi,opt,attr.attribute._id)}} />
+                                                                        <input className="form-check-input" type="radio" name={attr.attribute._id} id={"radio_"+i} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit,opt,attr.attribute._id,attr.attribute.choice_min)}} />
                                                                         <label className="form-check-label" htmlFor={"radio_"+i}>
                                                                             <span>{opt.name[locale]}</span>
                                                                             <span>{opt.price ? "+"+opt.price +" ฿" : ''}</span>
@@ -193,7 +231,7 @@ const DetailProduct = (props) => {
                                                                 return (
 
                                                                     <div className="form-check mb-3">
-                                                                        <input className={"form-check-input"+" check_" + attr.attribute._id} type="checkbox" id={"check_" + opt._id} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit,opt,attr.attribute._id)}} />
+                                                                        <input className={"form-check-input"+" check_" + attr.attribute._id} type="checkbox" id={"check_" + opt._id} value={opt._id} onClick={(e) => {onChangeAddtoOrder(e,"check_" + attr.attribute._id,attr.attribute.choice_limit,opt,attr.attribute._id,attr.attribute.choice_min)}} />
                                                                         <label className="form-check-label" htmlFor={"check_" + opt._id}>
                                                                             <span>{opt.name[locale]}</span>
                                                                             <span>{opt.price ? "+"+opt.price +" ฿" : ''} </span>

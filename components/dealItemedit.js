@@ -6,10 +6,12 @@ import en from '@/locales/en'
 import th from '@/locales/th'
 import { useAuth } from '@/context/useAuth';
 import Swal from 'sweetalert2'
+import { Modal } from 'react-bootstrap';
 const DealItemEdit = (props) => {
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
+    const [showReject,setShowReject] = useState(false)
     const[state,setState] = useState({
         loading : false
     })
@@ -27,44 +29,62 @@ const DealItemEdit = (props) => {
             setCount(count - 1);
             dataContext.editToOrder(props.index, count - 1,-1,props.dealItem.order)
         }else{
-            Swal.fire({
-                title: 'ยกเลิก!',
-                text: 'คุณต้องการยกเลิก......ใช่ไหม?',
-                icon: 'error',
-                showDenyButton: true,
-                confirmButtonText: 'ยืนยัน',
-                denyButtonText: `ยกเลิก`,
-                reverseButtons: true
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.isConfirmed) {
-                    // router.push('/')
-                    let price = dataContext.transitions?.products[props.index]
-                    const sum = price.options_detail.reduce((accumulator, object) => {
-                        return accumulator + object.price;
-                    }, 0);
-                    let remove = dataContext.transitions.products.splice(props.index, 1);
+            
+            setShowReject(true)
+            // Swal.fire({
+            //     title: 'ยกเลิก!',
+            //     text: 'คุณต้องการยกเลิก......ใช่ไหม?',
+            //     icon: 'error',
+            //     showDenyButton: true,
+            //     confirmButtonText: 'ยืนยัน',
+            //     denyButtonText: `ยกเลิก`,
+            //     reverseButtons: true
+            // }).then((result) => {
+            //     /* Read more about isConfirmed, isDenied below */
+            //     if (result.isConfirmed) {
+            //         // router.push('/')
+            //         let price = dataContext.transitions?.products[props.index]
+            //         const sum = price.options_detail.reduce((accumulator, object) => {
+            //             return accumulator + object.price;
+            //         }, 0);
+            //         let remove = dataContext.transitions.products.splice(props.index, 1);
                     
-                    dataContext.setTransitions((prev) => ({
-                        customer : {
-                            ...prev.customer,
-                            priceTotal :prev.customer.priceTotal - (props.dealItem.order.sale_price != 0 ? ((props.dealItem.order.sale_price + sum) * props.dealItem.qty)  :  ((props.dealItem.order.price + sum) * props.dealItem.qty))
-                        },
-                        products : dataContext.transitions.products
-                    }))
-                } else if (result.isDenied) {
-                    // Swal.fire('Changes are not saved', '', 'info')
-                }
-            })
+            //         dataContext.setTransitions((prev) => ({
+            //             customer : {
+            //                 ...prev.customer,
+            //                 priceTotal :prev.customer.priceTotal - (props.dealItem.order.sale_price != 0 ? ((props.dealItem.order.sale_price + sum) * props.dealItem.qty)  :  ((props.dealItem.order.price + sum) * props.dealItem.qty))
+            //             },
+            //             products : dataContext.transitions.products
+            //         }))
+            //     } else if (result.isDenied) {
+            //         // Swal.fire('Changes are not saved', '', 'info')
+            //     }
+            // })
         }
     };
+    const removeConut = (index,dealItem) => {
+        // router.push('/')
+        let price = dataContext.transitions?.products[index]
+        const sum = price.options_detail.reduce((accumulator, object) => {
+            return accumulator + object.price;
+        }, 0);
+        let remove = dataContext.transitions.products.splice(index, 1);
+        dataContext.setTransitions((prev) => ({
+            customer : {
+                ...prev.customer,
+                priceTotal :prev.customer.priceTotal - (dealItem.order.sale_price != 0 ? ((dealItem.order.sale_price + sum) * dealItem.qty)  :  ((dealItem.order.price + sum) * dealItem.qty))
+            },
+            products : dataContext.transitions.products
+        }))
+    }
     return (
+        <>
         <div className={style.dealItem}>
             <div className={style.dealImages}>
                 <Image src={props.dealItem.order?.image_url ? props.dealItem.order?.image_url : "/img/product.jpg"}  alt={props.dealItem.order?.image_url} width={40} height={40} layout={'responsive'} style={{objectFit:"cover"}}></Image>
             </div>
             <div className={style.group_dealitem}>
-                <div className={style.deal_name}>{props.dealItem.order.name[locale]}<span>฿ {props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price :  props.dealItem.order.price} x {count}</span></div>
+                <div className={style.deal_name}><span className={style.rowfisrt}>{props.dealItem.order.name[locale]}</span><span className={style.prices}>฿ {(props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price :  props.dealItem.order.price) + props.dealItem.sumTotal} x {count}</span></div>
                 <div className={style.deal_detail}>
                     {props.dealItem.note}
                     
@@ -76,7 +96,7 @@ const DealItemEdit = (props) => {
                                 addOn.name[locale]
                             }
                             {
-                                props.dealItem.options_detail.length != i+1 && ","
+                                props.dealItem.options_detail.length != i+1 && ", "
                             }
                             </>
                         )
@@ -99,6 +119,25 @@ const DealItemEdit = (props) => {
                 
             </div>
         </div>
+        <Modal key={1} show={showReject} onHide={()=> setShowReject(false)} size="sm"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered>
+                <Modal.Body>
+                    <div className='group-modal'>
+                       <div className="title_name_modal">
+                            <div className="title_text">ยกเลิก</div>
+                            <p className="subtitle_text">คุณต้องการยกเลิก......ใช่ไหม?</p>
+                       </div>
+                       <div className="group_btn_confirm">
+                            <div className="btn btn_false" onClick={() => {setShowConfirm(false)}}>ยกเลิก</div>
+                            <div className="btn btn_true" onClick={() => {removeConut(props.index,props.dealItem)}}>ยืนยัน</div>
+                       </div>
+                    </div>
+                </Modal.Body>
+        </Modal>
+        </>
+        
+        
     )
 }
 export default DealItemEdit

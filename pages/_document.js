@@ -14,7 +14,7 @@ export default function Document() {
       <body className="bg-site">
         <div id={'globalLoader'} className="face">
           <div className="loader">
-            <img src='/images/Logo-removebg-preview.png' width={200} height={200} alt="Logo"></img>
+            <img src='/images/speac.png' width={200} height={200} alt="Logo"></img>
             <div />
           </div>
         </div>

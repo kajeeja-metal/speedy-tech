@@ -18,6 +18,7 @@ const Cart = (props) => {
     const [dataItems, setDataItems] = useState(dataContext.transitions)
     
     const [showConfirm,setShowConfirm] = useState(false)
+    const [showReject,setShowReject] = useState(false)
     const [showAddtoCart,setShowAddtoCart] = useState(false)
     useEffect(()=>{
         console.log(dataContext.transitions)
@@ -50,11 +51,6 @@ const Cart = (props) => {
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     router.push('/order')
-                    if (result.isConfirmed) {
-                        router.push('/order')
-                    } else if (result.isDenied) {
-                        // Swal.fire('Changes are not saved', '', 'info')
-                    }
                 })
             }else{
                 Swal.fire({
@@ -74,18 +70,18 @@ const Cart = (props) => {
             })
         })
     }
+    
     const Load = (data) => {
         dataContext.setTransitions(data)
         setDataItems(data)
     }
-    
     return (
         <Pagemini  title={'รายการที่สั่ง'}>
             
             <div className="container_deal">
                 {
                     dataContext?.transitions.products.length != 0 ? dataContext?.transitions.products.map((item,i) => {
-                        return <DealItemEdit dealItem={item} index={i} Load={(e) => Load(e)} />
+                        return <DealItemEdit dealItem={item}  index={i} Load={(e) => Load(e)} />
                     }) : <div className="group_no_item">
                         No Item 
                     </div>
@@ -100,6 +96,7 @@ const Cart = (props) => {
                     <div className={[style.btn_addtocart,dataContext?.transitions.products.length == 0 && style.disabled].join(' ')}  onClick={()=> onClickAddOrder()}>ส่งรายการ</div>
                 </div>
            </div>
+           
            <Modal key={1} show={showConfirm} onHide={()=> setShowConfirm(false)} size="sm"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>

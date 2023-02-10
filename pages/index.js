@@ -76,15 +76,15 @@ const Index = (props) => {
                               <p>{menu?.sale_price != 0 && menu?.sale_price ?  (
                                 <>
                                 <span>
-                                  {menu.sale_price} ฿
+                                  {menu.sale_price.toLocaleString('en-US')} ฿
                                 </span>
                                 <span  className='discount-price'>
                                   {
-                                     menu.price
+                                     menu.price.toLocaleString('en-US')
                                   } ฿
                                 </span>
                                 </>
-                              ) : menu.price +" ฿"} </p>
+                              ) : menu.price.toLocaleString('en-US') +" ฿"} </p>
                             </div>
                           </div>
                       )
@@ -111,16 +111,16 @@ const Index = (props) => {
                                 <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu?.sale_price != 0 && menu?.sale_price ?  (
                                 <>
                                 <span>
-                                  {menu.sale_price} ฿
+                                  {menu.sale_price.toLocaleString('en-US')} ฿
                                 </span>
                                 <span  className='discount-price'>
                                   {
-                                     menu.price
+                                     menu.price.toLocaleString('en-US')
                                   } ฿
 
                                 </span>
                                 </>
-                              ) : menu.price + " ฿"}</p>
+                              ) : menu.price.toLocaleString('en-US') + " ฿"}</p>
                               </div>}
                             </div>
                           </div>
@@ -169,16 +169,16 @@ const Index = (props) => {
                           <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu?.sale_price != 0 && menu?.sale_price ?  (
                           <>
                           <span>
-                            {menu.sale_price} ฿
+                            {menu.sale_price.toLocaleString('en-US')} ฿
                           </span>
                           <span  className='discount-price'>
                             {
-                                menu.price
+                                menu.price.toLocaleString('en-US')
                             } ฿
 
                           </span>
                           </>
-                        ) : menu.price + " ฿"}</p>
+                        ) : menu.price.toLocaleString('en-US') + " ฿"}</p>
                         </div>}
                       </div>
                     </div>
