@@ -198,7 +198,7 @@ const Header = (props) => {
                                         confirmButtonText: 'Close',
                                     }).then((result) => {
                                         /* Read more about isConfirmed, isDenied below */
-                                        router.push('/order')
+                                        router.push('/')
                                     })
                                 }}>ยืนยัน</div>
                         </div>
