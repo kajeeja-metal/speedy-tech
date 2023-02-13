@@ -21,11 +21,11 @@ const Header = (props) => {
     const t = locale === "en" ? en : th
     const settings = {
         className: "slider variable-width",
-        dots: true,
+        dots: false,
         infinite: false,
         centerMode: false,
         slidesToShow: 1,
-        slidesToScroll: 1,
+        slidesToScroll: 4,
         variableWidth: true,
         afterChange: () => {
             data.setSlideIndex((prev) => (prev + 1))
@@ -52,12 +52,14 @@ const Header = (props) => {
         // refs.current[0].current.focus()
         // refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
         // dataContext.setHeightCateory()
+        
         sliderRef.current.slickGoTo(data.heightCateory)
         scrollSpy.update();
         return () => {
             Events.scrollEvent.remove('begin');
             Events.scrollEvent.remove('end');
         }
+        
       }, [data.heightCateory]);
     //   const createWheelStopListener = useCallback((element, callback, timeout) => {
     //     const { pageYOffset, scrollY } = window;
@@ -140,9 +142,9 @@ const Header = (props) => {
                                         return <Link className={style.navItem + ` ${data.heightCateory == i && " active"}`} to={`sec_${i}`} spy={true}
                                         smooth={true}
                                         hashSpy={true}
-                                        offset={-120}
+                                        offset={0}
                                         duration={50}
-                                        isDynamic={true}
+                                        isDynamic={false}
                                         ignoreCancelEvents={false}
                                          onSetActive={(e) => {
                                             data.scrolLWithUseRef(i,e)

@@ -22,16 +22,22 @@ const DetailProduct = (props) => {
     const [enabled, setEnabled] = useState(true)
     const plusFunc = () => {
         let priceItem = dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price
+        const sum = [...options_detail].reduce((accumulator, object) => {
+            return accumulator + object.price;
+        }, 0);
         setCount(count + 1);
-        setTotalPrice(priceItem * (count + 1))
+        setTotalPrice((priceItem + sum) * (count + 1))
     };
     const minusFunc = () => {
         let priceItem = dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price
+        const sum = [...options_detail].reduce((accumulator, object) => {
+            return accumulator + object.price;
+        }, 0);
         if (count === 1) {
             return;
         }
         setCount(count - 1);
-        setTotalPrice(priceItem * (count - 1))
+        setTotalPrice((priceItem + sum) * (count - 1))
     };
     const onChangeAddtoOrder = (e,id,limit,data,cho_id,choice_limit) => {
         const {name,value,checked,type} = e.target
@@ -52,7 +58,7 @@ const DetailProduct = (props) => {
             if(checked && checkedCheckss.length <= limit){
                 setOptions((prev) => [...prev,value])
                 setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data,min : choice_limit}])
-                setTotalPrice((prev) => prev + data.price)
+                setTotalPrice((prev) => (prev + data.price) * count)
                 // let checkSelectOptions = [...options_detail,{ch_id:cho_id,...data,min : choice_limit}].map(e => e.ch_id)
                 // const counts = {};
                 // checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
@@ -76,7 +82,7 @@ const DetailProduct = (props) => {
                 options_detail.splice(indexs, 1);
                 setOptions(options)
                 setOptionsDetail((prev) => [...prev])
-                setTotalPrice((prev) => prev - data.price)
+                setTotalPrice((prev) => (prev - data.price) * count)
                 // let checkSelectOptions = options_detail.map(e => e.ch_id)
                 // const counts = {};
                 // checkSelectOptions.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
@@ -94,14 +100,14 @@ const DetailProduct = (props) => {
             if(indexs < 0){
                 setOptions((prev) => [...prev,value])
                 setOptionsDetail((prev) => [...prev,{ch_id:cho_id,...data,min : choice_limit}])
-                setTotalPrice((prev) => prev + data.price)
+                setTotalPrice((prev) => (prev + data.price) * count)
             }else{
                 options_detail.splice(indexs, 1);
                 setOptionsDetail((prev) => [...options_detail,{ch_id:cho_id,...data,min : choice_limit}])
                 const sum = [...options_detail,{ch_id:cho_id,...data,min : choice_limit}].reduce((accumulator, object) => {
                     return accumulator + object.price;
                 }, 0);
-                setTotalPrice((dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price) + sum)
+                setTotalPrice(((dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price) + sum) * count)
                 
             }
             
