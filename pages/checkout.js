@@ -24,36 +24,36 @@ const Checkout = (props) => {
                 หมายเลขบิล: <span>NV0029388902</span>
             </div>
             <div className="height-100">
-            <div className="container_deal">
-                {/* loop */}
-                <div className={style.order_all_time_bill}>
-                    <div className={style.order_time_bill}>
-                    <span>OD0000042</span>
-                        <span>13:28 น.</span>
+                <div className="container_deal">
+                    {/* loop */}
+                    <div className={style.order_all_time_bill}>
+                        <div className={style.order_time_bill}>
+                        <span>OD0000042</span>
+                            <span>13:28 น.</span>
+                        </div>
+                        <DealItemCheckOut />
+                        <DealItemCheckOut />
+                        <div className={style.total_number_bill}>
+                            <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿265.00</span>
+                        </div>
                     </div>
-                    <DealItemCheckOut />
-                    <DealItemCheckOut />
+                    <div className={style.order_all_time_bill}>
+                        <div className={style.order_time_bill}>
+                        <span>OD0000042</span>
+                            <span>13:28 น.</span>
+                        </div>
+                        <DealItemCheckOut />
+                        <DealItemCheckOut />
+                        <div className={style.total_number_bill}>
+                            <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿265.00</span>
+                        </div>
+                    </div>
+                    {/* loop */}
                     <div className={style.total_number_bill}>
-                        <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿265.00</span>
+                        <div className={style.text_total}>ให้ทิปพนักงาน</div>
+                        <div className={style.inputTrap}><input type={'tel'} placeholder="0.00"></input></div>
                     </div>
                 </div>
-                <div className={style.order_all_time_bill}>
-                    <div className={style.order_time_bill}>
-                    <span>OD0000042</span>
-                        <span>13:28 น.</span>
-                    </div>
-                    <DealItemCheckOut />
-                    <DealItemCheckOut />
-                    <div className={style.total_number_bill}>
-                        <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿265.00</span>
-                    </div>
-                </div>
-                {/* loop */}
-                <div className={style.total_number_bill}>
-                    <div className={style.text_total}>ให้ทิปพนักงาน</div>
-                    <div className={style.inputTrap}><input type={'tel'} placeholder="0.00"></input></div>
-                </div>
-            </div>
             </div>
             <div className={style.group_button_bottom}>
                <div className={style.group_vat}>

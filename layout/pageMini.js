@@ -101,7 +101,7 @@ const Pagemini = (props) =>{
                 <i className="fal fa-arrow-left" onClick={()=> router.back()}></i>
                 <div className="titlePagename">{props.title}</div>
             </div>
-            <motion.div className={(state.isLoading ? 'loadingBlur height-100 pagemini' : 'height-100 pagemini')} initial="initial" animate="animate" exit={{ opacity: 0 }}>
+            <motion.div className={(state.isLoading ? 'loadingBlur height-100 pagemini' : 'pagemini')} initial="initial" animate="animate" exit={{ opacity: 0 }}>
                 {props.children}
             </motion.div>
         </>

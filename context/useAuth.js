@@ -4,13 +4,18 @@ import { getMe,getScanqr } from '@/services/auth'
 import {getProducts} from "@/services/getServices"
 import Router ,{ useRouter } from 'next/router';
 import { connect } from 'react-redux';
+import io from 'socket.io-client';
+const socket = io()
 const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
     const router = useRouter()
+    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [lastPong, setLastPong] = useState(null);
     const [user, setUser] = useState(null)
     const [products, setProducts] = useState([])
     const [slideIndex, setSlideIndex] = useState(0)
     const [updateCount, setUpdateCount] = useState(0)
+    const [showConfirm,setShowConfirm] = useState(false)
     const [transitions, setTransitions] = useState({
         customer : {
             name : "",
@@ -23,11 +28,31 @@ export const AuthProvider = ({ children }) => {
         },
         products : []
     })
+    
     const [idCate,setIdCate ] = useState(null)
     const [emp,setEmp ] = useState(null)
     const [heightCateory,setHeightCateory ] = useState(0)
     const [dataSearch,setDataSearch ] = useState([])
     const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        socket.on('connect', () => {
+          setIsConnected(true);
+        });
+    
+        socket.on('disconnect', () => {
+          setIsConnected(false);
+        });
+    
+        socket.on('pong', () => {
+          setLastPong(new Date().toISOString());
+        });
+    
+        return () => {
+          socket.off('connect');
+          socket.off('disconnect');
+          socket.off('pong');
+        };
+      }, []);
     useEffect(() => {
         async function loadUserFromCookies() {
             const token = Cookies.get('token')
@@ -102,14 +127,12 @@ export const AuthProvider = ({ children }) => {
             setLoading(false)
         }
         loadUserFromCookies()
-        console.log("transitions",transitions)
     }, [emp])
     
     const scrolLWithUseRef = (e,i) => {
         
         setHeightCateory(e)
         setUpdateCount(e)
-        console.log('scrolLWithUseRef',e,i)
         i.defaultPrevented
         // divFive.current?.scrollIntoView({ block: "center", behavior: "smooth" });
     };
@@ -209,7 +232,7 @@ export const AuthProvider = ({ children }) => {
         }))
     }
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder , editToOrder ,dataSearch,setDataSearch,emp,setEmp  }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout,products,setProducts,idCate,setIdCate,scrolLWithUseRef,setHeightCateory,heightCateory,transitions, setTransitions,slideIndex, setSlideIndex , updateCount, setUpdateCount ,addToOrder , editToOrder ,dataSearch,setDataSearch,emp,setEmp,showConfirm,setShowConfirm   }}>
             {children}
         </AuthContext.Provider>
     )

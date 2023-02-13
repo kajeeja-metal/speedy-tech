@@ -18,43 +18,40 @@ const Order = (props) => {
     const [total,setTotal] = useState(0)
     const loadHistory = async () => {
         let historys = await getHistory()
-        const sumTotal = historys.data.reduce((accumulator, object) => {
-            return accumulator + object.total_amount;
-        }, 0);
+        const sumTotal = 0
         setTotal(sumTotal)
-        console.log(sumTotal)
         setHistory(historys.data)
     }
     useEffect(()=>{
         loadHistory()
     },[])
     const onClickAddOrder = async () =>{
-        router.push('/checkout')
-        // setShowConfirm(true)
+        // router.push('/checkout')
+        setShowConfirm(true)
     }
     return (
         <Pagemini  title={'รายการที่สั่งทั้งหมด'}>
-            <div className={style.number_bill}>
+            {/* <div className={style.number_bill}>
                 หมายเลขบิล: <span>{history[0]?.order_booking}</span>
-            </div>
-            <div className="height-100">
+            </div> */}
+            <br/>
+            <div className="height-100" style={{paddingBottom : "130px"}}>
                 <div className="container_deal">
                     {
-                        history.langth != 0 && history.map((item,i) => {
+                        history?.orders && history?.orders.map((item,i) => {
                             
                             return (
                                 <>
                                 <div className={style.order_all_time_bill}>
                                     <div className={style.order_time_bill}>
-                                    <span>{item.order_no}</span>
+                                    <span style={{paddingTop:"2px"}}>บิลที่ {item.order_no}</span>
                                         <span>{moment(item.created_at).format('LT')}</span>
                                     </div>
                                     {
                                         item.details.map((dataItem,i) => {
-                                            return <DealItemOrder dealItem={dataItem} />
+                                            return <DealItemOrder dealItem={dataItem} order_number={i} />
                                         })
                                     }
-                                    
                                     <div className={style.total_number_bill}>
                                         <span className={style.text_total}>รวมค่าอาหาร:</span> <span className={style.price}>฿ {item.total_amount.toLocaleString('en-US')}</span>
                                     </div>
@@ -68,8 +65,32 @@ const Order = (props) => {
                     
                 </div>
             </div>
-            
             <div className={style.group_button_bottom}>
+               <div className={style.group_vat}>
+                <div className={style.total_number_bill}>
+                        <div className={style.text_total}>รวมค่าอาหารทั้งหมด</div>
+                        <div className={style.text_total}>฿ {parseFloat(history.sub_total).toFixed(2).toLocaleString()}</div>
+                    </div>
+                    <div className={style.total_number_bill}>
+                        <div className={style.text_total}>VAT {history.vat_rate}%</div>
+                        <div className={style.text_total}>฿ {parseFloat(history.vat_amount).toFixed(2).toLocaleString()}</div>
+                    </div>
+                    <div className={style.total_number_bill}>
+                        <div className={style.text_total}>Service charge {history.service_charge_rate}%</div>
+                        <div className={style.text_total}>฿ {parseFloat(history.service_charge_amount).toFixed(2).toLocaleString()}</div>
+                    </div>
+               </div>
+               <div className={style.group_total}>
+                <div className={style.titletotal}>รวมทั้งหมด</div>
+                <div className={style.price}>฿ {parseFloat(history.totol_amount).toLocaleString('en-US')}</div>
+                {/* <span style={{fontSize :"12px" , lineHeight : "1"}}>ยังไม่รวม VAT,Service Chage</span> */}
+            </div>
+            <div className={style.group_addtocart}>
+                <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>ชำระเงิน</div>
+            </div>
+           </div>
+           
+            {/* <div className={style.group_button_bottom}>
                 <div className={style.group_total}>
                     <div className={style.titletotal}>รวมค่าอาหาร</div>
                     <div className={style.price}>฿ {total.toLocaleString('en-US')}</div>
@@ -77,18 +98,18 @@ const Order = (props) => {
                 <div className={style.group_addtocart}>
                     <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>สรุปยอดเงิน</div>
                 </div>
-           </div>
+           </div> */}
            <Modal key={1} show={showConfirm} onHide={()=> setShowConfirm(false)} size="sm"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>
                 <Modal.Body>
                     <div className='group-modal'>
                        <div className="title_name_modal">
-                            <div className="title_text">ยืนยันรายการ</div>
-                            <p className="subtitle_text">คุณต้องการส่งรายการอาหารนี้ใช่หรือไม่</p>
+                            <div className="title_text">เรียกพนักงาน</div>
+                            <p className="subtitle_text">คุณต้องการเรียกพนักงานเพื่อชำระเงินใช่หรือไม่</p>
                        </div>
                        <div className="group_btn_confirm">
-                            <div className="btn btn_false">ยกเลิก</div>
+                            <div className="btn btn_false" onClick={() => {setShowConfirm(false)}}>ยกเลิก</div>
                             <div className="btn btn_true" onClick={() => {router.push('/')}}>ยืนยัน</div>
                        </div>
                     </div>

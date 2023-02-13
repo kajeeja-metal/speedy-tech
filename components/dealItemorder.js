@@ -5,23 +5,31 @@ import Router ,{useRouter}from 'next/router'
 import en from '@/locales/en'
 import th from '@/locales/th'
 import { useAuth } from '@/context/useAuth';
+
 const DealItemOrder = (props) => {
     const {dealItem } = props
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
-    console.log(dealItem)
 return (
     <div className={style.dealItem}>
-        
             <div className={style.dealImages}>
-                <Image src={dealItem?.product?.image_url ? dealItem?.product?.image_url : "/images/blur.png"} width={70} height={70}></Image>
+                <Image src={dealItem?.product?.image_url ? dealItem?.product?.image_url : "/images/blur.png"} width={70} height={70} alt="ss"></Image>
             </div>
             <div className={style.group_dealitem}>
                 <div className={style.deal_name}>{dealItem.product.name[locale]} <span>฿ {dealItem.unit_price.toLocaleString('en-US')} x {dealItem.qty}</span></div>
                 <div className={style.deal_detail}>{
                     dealItem.options.map((opt,i) =>{
-                        return opt.option.name[locale]+ ","
+                        return  (
+                            <>
+                            {
+                                opt.option.name[locale]
+                            }
+                            {
+                                dealItem.options.length != i+1 && ","
+                            }
+                            </>
+                        )
                     })
                 }</div>
                 <div className={style.bottom_deal_item}>

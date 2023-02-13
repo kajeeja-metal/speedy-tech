@@ -104,7 +104,7 @@ const DealItemEdit = (props) => {
                 
                 <div className={style.bottom_deal_item}>
                     <div className={style.deal_price}>
-                        <span>แก้ไข</span>
+                        {/* <span>แก้ไข</span> */}
                     </div>
                     <div className={style.group_qty}>
                         <div className={style.min_qty} onClick={() => minusFunc()}>
@@ -129,7 +129,7 @@ const DealItemEdit = (props) => {
                             <p className="subtitle_text">คุณต้องการยกเลิก......ใช่ไหม?</p>
                        </div>
                        <div className="group_btn_confirm">
-                            <div className="btn btn_false" onClick={() => {setShowConfirm(false)}}>ยกเลิก</div>
+                            <div className="btn btn_false" onClick={() => {setShowReject(false)}}>ยกเลิก</div>
                             <div className="btn btn_true" onClick={() => {removeConut(props.index,props.dealItem)}}>ยืนยัน</div>
                        </div>
                     </div>

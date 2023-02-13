@@ -66,7 +66,6 @@ const Home = (props) => {
         return content
     }
     useEffect(()=>{
-        console.log(router.query.slug)
     },[])
     return (
         <div>

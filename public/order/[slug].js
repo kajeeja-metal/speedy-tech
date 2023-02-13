@@ -12,12 +12,10 @@ const DetailSlug = (props) => {
     const t = locale === "en" ? en : th
     useEffect(()=>{
         let data = JSON.parse(Cookies.get("table"))
-        console.log(data)
     },[])
     const myLoader = ({ src, width, quality }) => {
         return `https://e-ordering-six.vercel.app/${src}?w=${width}&q=${quality || 75}`
       }
-      console.log(props.data)
     return (
         <PagesNoHeader>
            <div className={style.group_images}>

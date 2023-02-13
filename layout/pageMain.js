@@ -90,7 +90,6 @@ const Pages = (props) => {
             setState({ isLoading: false });
           });
     },[]);
-    console.log(dataContext)
     return (
         <div className={props.isDetail == true ? 'contentArea hidden' : 'contentArea'}>
             {/* {state.isLoading ? Spinner() : ''} */}

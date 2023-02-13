@@ -19,7 +19,7 @@ const DealItem = (props) => {
         <>
         <div className={style.dealItem} onClick={()=>{ props.handleShow(props.data)}}>
             <div className={style.dealImages}>
-                <Image src={'/images/item1.png'} width={98} height={98} alt={props.data.name[locale]}></Image>
+                <Image src={'/images/item1.png'} blurDataURL={"/images/item1.png"} width={98} height={98} alt={props.data.name[locale]}></Image>
             </div>
             <div className={style.group_dealitem}>
                 <div className={style.deal_name}>{props.data.name[locale]}</div>

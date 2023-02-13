@@ -21,7 +21,6 @@ const Cart = (props) => {
     const [showReject,setShowReject] = useState(false)
     const [showAddtoCart,setShowAddtoCart] = useState(false)
     useEffect(()=>{
-        console.log(dataContext.transitions)
     },[dataContext.transitions])
     const onClickAddOrder = async () =>{
         setShowConfirm(true)
@@ -43,6 +42,7 @@ const Cart = (props) => {
                     products : []
                 })
                 setShowConfirm(false)
+                router.push('/order')
                 Swal.fire({
                     icon: 'success',
                     title: 'Your work has been saved',
@@ -50,7 +50,7 @@ const Cart = (props) => {
                     confirmButtonText: 'Close',
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
-                    router.push('/order')
+                    
                 })
             }else{
                 Swal.fire({
@@ -83,7 +83,12 @@ const Cart = (props) => {
                     dataContext?.transitions.products.length != 0 ? dataContext?.transitions.products.map((item,i) => {
                         return <DealItemEdit dealItem={item}  index={i} Load={(e) => Load(e)} />
                     }) : <div className="group_no_item">
-                        No Item 
+                        <div style={{textAlign : " center", fontSize : "24px" , lineHeight : "1.2"}}>
+                            <img src="/images/notfound.png"></img><br/><br/>
+                            ไม่พบรายการ<br/>
+                            <span style={{display : "block",color : "#777",fontSize : "22px"}}>ยังไม่มีรายการที่สั่งเข้ามา</span>
+                        </div>
+                        
                     </div>
                 }
             </div>

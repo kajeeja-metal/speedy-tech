@@ -27,7 +27,7 @@ const DetailProduct = (props) => {
     };
     const minusFunc = () => {
         let priceItem = dataItem?.sale_price != 0 && dataItem?.sale_price ? dataItem?.sale_price : dataItem?.price
-        if (count === 0) {
+        if (count === 1) {
             return;
         }
         setCount(count - 1);
@@ -273,8 +273,8 @@ const DetailProduct = (props) => {
                         <button className={style.addToCart +' addToCart'} disabled={enabled}>
                             <span>Add to cart</span>
                             <span>{dataItem?.sale_price != 0 && dataItem?.sale_price ? <>
-                                  {totalPrice} ฿
-                                </> : totalPrice + " ฿"}</span>
+                                  {totalPrice.toLocaleString('en-US')} ฿
+                                </> : totalPrice.toLocaleString('en-US') + " ฿"}</span>
                             
                         </button>
                     </div>

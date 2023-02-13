@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import en from '@/locales/en'
 import th from '@/locales/th'
 import Slider from "react-slick";
+import { Modal } from 'react-bootstrap';
+import Swal from 'sweetalert2'
 const Header = (props) => {
     const [isSearchBar, setSearchBar] = useState(false)
     const sliderRef = useRef();
@@ -185,6 +187,34 @@ const Header = (props) => {
                     }
                 </div>
             </header>
+            <Modal key={1} show={data.showConfirm} onHide={()=> data.setShowConfirm(false)} size="sm"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+                    <Modal.Body>
+                        <div className='group-modal'>
+                        <div className="title_name_modal">
+                                <div className="title_text">เรียกพนักงาน</div>
+                                <p className="subtitle_text">คุณต้องการเรียกพนักงานหรือไม่</p>
+                        </div>
+                        <div className="group_btn_confirm">
+                                <div className="btn btn_false" onClick={()=> data.setShowConfirm(false)}>ยกเลิก</div>
+                                <div className="btn btn_true" onClick={() => {
+                                    data.setShowConfirm(false)
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'เรียกพนักงานเรียบร้อย',
+                                        text: 'พนักงานกำลังกำเนินการตามที่ท่านขอ',
+                                        showConfirmButton: false,
+                                        confirmButtonText: 'Close',
+                                    }).then((result) => {
+                                        /* Read more about isConfirmed, isDenied below */
+                                        router.push('/order')
+                                    })
+                                }}>ยืนยัน</div>
+                        </div>
+                        </div>
+                </Modal.Body>
+            </Modal>
         </>
 
     )
