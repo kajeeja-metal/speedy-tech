@@ -12,6 +12,7 @@ const DealItemEdit = (props) => {
     const { locale } = router
     const t = locale === "en" ? en : th
     const [showReject,setShowReject] = useState(false)
+    const [nameReject,setnameReject] = useState(false)
     const[state,setState] = useState({
         loading : false
     })
@@ -31,6 +32,7 @@ const DealItemEdit = (props) => {
         }else{
             
             setShowReject(true)
+            setnameReject(props.dealItem.order?.name[locale] ? props.dealItem.order?.name[locale] : props.dealItem.order?.name["th"])
             // Swal.fire({
             //     title: 'ยกเลิก!',
             //     text: 'คุณต้องการยกเลิก......ใช่ไหม?',
@@ -126,7 +128,7 @@ const DealItemEdit = (props) => {
                     <div className='group-modal'>
                        <div className="title_name_modal">
                             <div className="title_text">ยกเลิก</div>
-                            <p className="subtitle_text">คุณต้องการยกเลิก......ใช่ไหม?</p>
+                            <p className="subtitle_text">คุณต้องการยกเลิก <b >{nameReject}</b> ใช่ไหม?</p>
                        </div>
                        <div className="group_btn_confirm">
                             <div className="btn btn_false" onClick={() => {setShowReject(false)}}>ยกเลิก</div>
