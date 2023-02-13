@@ -185,8 +185,8 @@ useEffect(() => {
               {
                 dataContext.dataSearch.map((menu,i) => {
                   return (
-                    <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
-                      <div className={style.pic} title={t.Soldout}>
+                    <div className={style.item} onClick={(e) => {!menu.is_out_stock ? openModelDataItem(menu) : ""}}>
+                      <div className={menu.is_out_stock ? [style.pic,style.soldout].join(' ') : style.pic} title={t.Soldout}>
                         <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} alt="" width={120} height={120} objectFit={"cover"} />
                       </div>
                       <div className={style.detail}>
