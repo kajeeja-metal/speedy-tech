@@ -57,7 +57,7 @@ const Header = (props) => {
         // refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
         // dataContext.setHeightCateory()
         
-        sliderRef.current.slickGoTo(data.heightCateory)
+        sliderRef?.current?.slickGoTo(data.heightCateory)
         scrollSpy.update();
         return () => {
             Events.scrollEvent.remove('begin');
@@ -83,7 +83,7 @@ const Header = (props) => {
                             <img src="/images/Ring.svg" width={25} onClick={() => {
                                 data.setEmp(true)
                                 var body = document.body;
-            body.classList.add("lockPage")}}></img>
+                                body.classList.add("lockPage")}}></img>
                         </div>
                         <div className={style.lang_change}>
                         <img src="/images/History.svg" width={25}  onClick={() => {router.push('/order')}}></img>

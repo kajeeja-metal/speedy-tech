@@ -202,7 +202,7 @@ const DetailProduct = (props) => {
                         </div>
                     </div>
 
-                    <Accordion className='AccordionCustom' defaultActiveKey={[0, 1]} alwaysOpen>
+                    <Accordion className='AccordionCustom' defaultActiveKey={[0, 1, 2]} alwaysOpen>
                         {
                             dataItem.attributes.map((attr, i) => {
                                 return (
