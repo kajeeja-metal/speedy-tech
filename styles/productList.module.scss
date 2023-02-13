@@ -144,7 +144,8 @@
 }
 .group_button_all{
     position: relative;
-    position: sticky;
+    position: fixed;
     bottom: 0px;
     z-index: 99;
+    width: 100%;
 }

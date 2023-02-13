@@ -38,11 +38,15 @@ const Header = (props) => {
         let array = []
         let dataSearch = data.products.map((e) => e.menus)
         let datas = array.concat(...dataSearch).filter((item) => {
-            return item.name[locale].toLowerCase().match(value.toLowerCase())
+            if(item.name[locale] != null){
+                return item.name[locale].toLowerCase().match(value.toLowerCase())
+            }else{
+                return item.name["th"].toLowerCase().match(value.toLowerCase())
+            }
+            
         })
         props.setSearch(value)
         data.setDataSearch(datas)
-
     }
     const backBtn = (e) => {
         setSearchBar(false)
@@ -61,26 +65,7 @@ const Header = (props) => {
         }
         
       }, [data.heightCateory]);
-    //   const createWheelStopListener = useCallback((element, callback, timeout) => {
-    //     const { pageYOffset, scrollY } = window;
-    //     var handle = null;
-    //     var onScroll = function() {
-    //         if (handle) {
-    //             clearTimeout(handle);
-    //         }
-    //         handle = setTimeout(callback, timeout || 200); // default 200 ms
-    //     };
-    //     window.addEventListener('wheel', onScroll);
-    //     return function() {
-    //       window.removeEventListener('wheel', onScroll);
-    //     };
-    // }, []);
-    //   useEffect(() => {
-    //     createWheelStopListener(window, function() {
-    //         console.log(data.updateCount)
-    //         // sliderRef.slickGoTo(data.heightCateory)
-    //   })
-    //   }, []);
+
     const handleRoute = (locale) => router.push(`${locale}${router.asPath}`, `${locale}${router.asPath}`, { locale: false })
     return (
         <>
@@ -90,8 +75,8 @@ const Header = (props) => {
                         <Image src={ !data?.user?.logo_image ? '/images/logo.png' : data?.user?.logo_image} width={36} height={36} alt="logo"></Image>
                     </div>
                     <div className={style.group_shop}>
-                        <div className={style.name}>{data?.user?.shop_name[locale]}</div>
-                        <div className={style.table}><span>{data?.user?.table_name[locale]}</span></div>
+                        <div className={style.name}>{data?.user?.shop_name[locale] ? data?.user?.shop_name[locale] : data?.user?.shop_name['th']}</div>
+                        <div className={style.table}><span>{data?.user?.table_name[locale] ? data?.user?.table_name[locale] : data?.user?.table_name["th"]}</span></div>
                     </div>
                     <div className={style.active_all_menu}>
                         <div className={style.lang_change}>
@@ -152,7 +137,7 @@ const Header = (props) => {
                                           onClick={(e) => {
                                             sliderRef.current.slickGoTo(i)
                                         }} >
-                                        <span>{item.category_name[locale]}</span>
+                                        <span>{item?.category_name[locale] ? item?.category_name[locale] : item?.category_name["th"]}</span>
                                     </Link>
                                     })
                                 }

@@ -17,6 +17,7 @@ const Index = (props) => {
   let refs = useRef(null);
   const [isDetail, setDetail] = useState(false)
   const [dataItems, setDataItems] = useState([])
+  const [scrollY,setScrollY] = useState(false)
   const dataContext = useAuth()
   const router = useRouter()
   const { locale } = router
@@ -28,6 +29,26 @@ const Index = (props) => {
       window.scrollTo(0, 0)
     }
   }, [Search])
+  const onScroll = useCallback(event => {
+    const { pageYOffset, scrollY } = window;
+    // console.log("yOffset", pageYOffset, "scrollY", scrollY);
+    if(pageYOffset < 100){
+      setScrollY(true)
+    }else{
+      setScrollY(false)
+    }
+  
+    // setScrollY(window.pageYOffset);
+}, []);
+
+useEffect(() => {
+  //add eventlistener to window
+  window.addEventListener("scroll", onScroll, { passive: true });
+  // remove event on unmount to prevent a memory leak with the cleanup
+  return () => {
+     window.removeEventListener("scroll", onScroll, { passive: true });
+  }
+}, []);
   // useEffect(() => {
   //   // refs.current[0].current.focus()
   //   refs.current?.scrollIntoView({ block: "start", behavior: "smooth" });
@@ -72,7 +93,7 @@ const Index = (props) => {
                               <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} blurDataURL={'/images/blur.png'} placeholder="blur" alt={menu?.image_url} width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
                             </div>
                             <div className={style.detail}>
-                              <h1>{menu.name[locale]}</h1>
+                              <h1>{menu?.name[locale] ? menu?.name[locale] : menu?.name["th"]}</h1>
                               <p>{menu?.sale_price != 0 && menu?.sale_price ?  (
                                 <>
                                 <span>
@@ -104,8 +125,8 @@ const Index = (props) => {
                             </div>
                             <div className={style.detail}>
                               <div className={style.row}>
-                                <h1>{menu.name[locale]}</h1>
-                                <p>{menu.description[locale]}</p>
+                                <h1>{menu?.name[locale] ? menu?.name[locale] : menu?.name["th"]}</h1>
+                                <p>{menu?.description[locale] ? menu?.description[locale] : menu?.description["th"]}</p>
                               </div>
                               {menu.price != 0 && <div className={style.row}>
                                 <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu?.sale_price != 0 && menu?.sale_price ?  (
@@ -134,7 +155,8 @@ const Index = (props) => {
           }
           
           <div className={style.group_button_all}>
-          <div onClick={() => scrollToTop()} className={"arrow-up"}> <i className="fa fa-arrow-up"></i> </div>
+
+          {!scrollY && <div onClick={() => scrollToTop()} className={"arrow-up"}> <i className="fa fa-arrow-up"></i> </div>}
           
           {
             dataContext.transitions.products.length != 0 && 
@@ -162,8 +184,8 @@ const Index = (props) => {
                       </div>
                       <div className={style.detail}>
                         <div className={style.row}>
-                          <h1>{menu.name[locale]}</h1>
-                          <p>{menu.description[locale]}</p>
+                          <h1>{menu?.name[locale] ? menu?.name[locale] : menu?.name["th"]}</h1>
+                          <p>{menu?.description[locale] ? menu?.description[locale] : menu?.description["th"]}</p>
                         </div>
                         {menu.price != 0 && <div className={style.row}>
                           <p className='txt-md text-dark' style={{'fontSize' : '20px'}}>{menu?.sale_price != 0 && menu?.sale_price ?  (
