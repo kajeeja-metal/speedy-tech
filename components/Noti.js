@@ -33,8 +33,7 @@ const Noti = (props) => {
 
                     <div className='AccordionCustom'>
                        <div className='optionItem '>
-                        <br/>
-                            <div className="form-check" style={{borderTop : "1px solid #dee2e6"}} onClick={()=> {
+                            <div className="form-check" style={{borderBottom : "1px solid #dee2e6"}} onClick={()=> {
                                 setEmp(false)
                                 setShowConfirm(true)
                                 }}>
@@ -43,7 +42,7 @@ const Noti = (props) => {
                                     <span>เช็ดบิล</span>
                                 </label>
                             </div>
-                            <div className="form-check" style={{ borderTop : "1px solid #dee2e6"}} onClick={()=> {
+                            <div className="form-check" style={{ borderBottom : "1px solid #dee2e6"}} onClick={()=> {
                                 setEmp(false)
                                 setShowConfirm(true)
                                 }}>
@@ -52,7 +51,7 @@ const Noti = (props) => {
                                     <span>เติมน้ำซุป</span>
                                 </label>
                             </div>
-                            <div className="form-check" style={{ borderTop : "1px solid #dee2e6"}} onClick={()=> {
+                            <div className="form-check" style={{ borderBottom : "1px solid #dee2e6"}} onClick={()=> {
                                 setEmp(false)
                                 setShowConfirm(true)
                                 }}>
@@ -61,7 +60,7 @@ const Noti = (props) => {
                                     <span>ขอเครื่องปรุง</span>
                                 </label>
                             </div>
-                            <div className="form-check" style={{borderTop : "1px solid #dee2e6"}} onClick={()=> {
+                            <div className="form-check" style={{borderBottom : "1px solid #dee2e6"}} onClick={()=> {
                                 setEmp(false)
                                 setShowConfirm(true)
                                 }}>
@@ -70,8 +69,8 @@ const Noti = (props) => {
                                     <span>เติมเครื่องดื่ม</span>
                                 </label>
                             </div>
-                            {/* <div className="form-check" style={{padding: "15px 0" , borderTop : "1px solid #dee2e6"}}>
-                                <label className="form-check-label" style={{padding: "15px 0" , borderTop : "1px solid #dee2e6"}} htmlFor={"check_"}>
+                            {/* <div className="form-check" style={{padding: "15px 0" , borderBottom : "1px solid #dee2e6"}}>
+                                <label className="form-check-label" style={{padding: "15px 0" , borderBottom : "1px solid #dee2e6"}} htmlFor={"check_"}>
                                     <span>อื่นๆ</span>
                                 </label>
                             </div> */}

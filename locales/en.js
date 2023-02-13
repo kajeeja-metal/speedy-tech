@@ -4,5 +4,7 @@ export default {
     "excluding" : "(exc.)",
     "including" : "(inc.)",
     "Selectatleast" : "Select at least ",
-    "Item" : "item"
+    "Selectatleastmin" : "Select at least ",
+    "Item" : "item",
+    "Soldout" : "Out of Stock"
   } 

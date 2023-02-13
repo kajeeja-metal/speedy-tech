@@ -79,7 +79,7 @@ useEffect(() => {
       {Search == '' ?
         <>
           {
-            dataContext.products.map((group_cat,index) => {
+            dataContext.products.length != 0 ?dataContext.products.map((group_cat,index) => {
               return (
                 group_cat.category_recommend ? 
                 <section className={style.productRec} id={`sec_${index}`} ref={index === dataContext?.heightCateory ? refs : null}>
@@ -88,8 +88,8 @@ useEffect(() => {
                     
                     {group_cat.menus.map((menu,i) => {
                       return (
-                          <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
-                            <div className={style.pic}>
+                          <div className={style.item} onClick={(e) => { !menu.is_out_stock ? openModelDataItem(menu) : ""}}>
+                            <div className={menu.is_out_stock ? [style.pic,style.soldout].join(' ') : style.pic} title={ menu.is_out_stock ? t.Soldout : ""} >
                               <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} blurDataURL={'/images/blur.png'} placeholder="blur" alt={menu?.image_url} width={300} height={300} layout={'responsive'} style={{objectFit:"cover"}} />
                             </div>
                             <div className={style.detail}>
@@ -119,8 +119,8 @@ useEffect(() => {
                     {
                       group_cat.menus.map((menu,i) => {
                         return (
-                          <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
-                            <div className={style.pic}>
+                          <div className={style.item} onClick={(e) => !menu.is_out_stock ? openModelDataItem(menu)  : ''}>
+                            <div className={menu.is_out_stock ? [style.pic,style.soldout].join(' ') : style.pic} title={ menu.is_out_stock ? t.Soldout : ""}>
                               <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} blurDataURL={'/images/blur.png'} placeholder="blur" alt="" width={120} height={120} objectFit={"cover"} />
                             </div>
                             <div className={style.detail}>
@@ -151,7 +151,14 @@ useEffect(() => {
                   </div>
                 </section>
               )
-            })
+            }) : <div className="group_no_item">
+            <div style={{textAlign : " center", fontSize : "24px" , lineHeight : "1.2"}}>
+                <img src="/images/notfound.png"></img><br/><br/>
+                ไม่พบเมนูอาหาร<br/>
+                {/* <span style={{display : "block",color : "#777",fontSize : "22px"}}>ยังไม่มีรายการที่สั่งเข้ามา</span> */}
+            </div>
+            
+        </div>
           }
           
           <div className={style.group_button_all}>
@@ -179,7 +186,7 @@ useEffect(() => {
                 dataContext.dataSearch.map((menu,i) => {
                   return (
                     <div className={style.item} onClick={(e) => openModelDataItem(menu)}>
-                      <div className={style.pic}>
+                      <div className={style.pic} title={t.Soldout}>
                         <Image src={menu?.image_url ? menu?.image_url : "/images/blur.png"} alt="" width={120} height={120} objectFit={"cover"} />
                       </div>
                       <div className={style.detail}>

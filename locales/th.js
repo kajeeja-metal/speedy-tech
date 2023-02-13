@@ -5,5 +5,6 @@ export default {
     "including" : "(รวมภาษีมูลค่าเพิ่ม)",
     "Selectatleast" : "เหลืออย่างน้อย ",
     "Selectatleastmin" : "สูงสุด",
-    "Item" : "รายการ"
+    "Item" : "รายการ",
+    "Soldout" : "สินค้าหมด"
   }

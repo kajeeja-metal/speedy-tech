@@ -80,7 +80,10 @@ const Header = (props) => {
                     </div>
                     <div className={style.active_all_menu}>
                         <div className={style.lang_change}>
-                            <img src="/images/Ring.svg" width={25} onClick={() => {data.setEmp(true)}}></img>
+                            <img src="/images/Ring.svg" width={25} onClick={() => {
+                                data.setEmp(true)
+                                var body = document.body;
+            body.classList.add("lockPage")}}></img>
                         </div>
                         <div className={style.lang_change}>
                         <img src="/images/History.svg" width={25}  onClick={() => {router.push('/order')}}></img>
@@ -107,7 +110,7 @@ const Header = (props) => {
                         <p>{data?.user?.branch_name[locale] +" - "+ data?.user?.table_name[locale]}</p>
                     </div>
                 </div> */}
-                <div className={style.swichNav}>
+                {data?.products.length != 0 && <div className={style.swichNav}>
                     {isSearchBar == true ?
                         <div className={style.searchBar}>
                             <div className={style.icon + ' icon_search'} />
@@ -139,7 +142,7 @@ const Header = (props) => {
                                         }} >
                                         <span>{item?.category_name[locale] ? item?.category_name[locale] : item?.category_name["th"]}</span>
                                     </Link>
-                                    })
+                                    }) 
                                 }
                                 {/* {
                                     data?.products && data.products.map((item,i) =>{
@@ -172,7 +175,7 @@ const Header = (props) => {
                             </div>
                         </div>
                     }
-                </div>
+                </div>}
             </header>
             <Modal key={1} show={data.showConfirm} onHide={()=> data.setShowConfirm(false)} size="sm"
                     aria-labelledby="contained-modal-title-vcenter"
