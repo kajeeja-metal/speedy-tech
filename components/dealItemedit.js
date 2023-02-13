@@ -84,7 +84,7 @@ const DealItemEdit = (props) => {
                 <Image src={props.dealItem.order?.image_url ? props.dealItem.order?.image_url : "/images/blur.png"}  alt={props.dealItem.order?.image_url} width={40} height={40} layout={'responsive'} style={{objectFit:"cover"}}></Image>
             </div>
             <div className={style.group_dealitem}>
-                <div className={style.deal_name}><span className={style.rowfisrt}>{props.dealItem.order.name[locale]}</span><span className={style.prices}>฿ {(props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price :  props.dealItem.order.price) + props.dealItem.sumTotal} x {count}</span></div>
+                <div className={style.deal_name}><span className={style.rowfisrt}>{props.dealItem.order.name[locale]}</span><span className={style.prices}>฿ {(props.dealItem.order.sale_price != 0 ? props.dealItem.order.sale_price.toLocaleString('en-US') :  (props.dealItem.order.price) + props.dealItem.sumTotal).toLocaleString('en-US')} x {count}</span></div>
                 <div className={style.deal_detail}>
                     {props.dealItem.note}
                     

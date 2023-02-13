@@ -98,7 +98,8 @@ const Pagemini = (props) =>{
             
             {state.isLoading ? Spinner() : ''}
             <div className='group_back mini'>
-                <i className="fal fa-arrow-left" onClick={()=> router.back()}></i>
+
+                {props.isDetail == undefined && <i className="fal fa-arrow-left" onClick={()=> {!props.onBack && props.onBack == undefined ? router.back() : router.push("/")}}></i>}
                 <div className="titlePagename">{props.title}</div>
             </div>
             <motion.div className={(state.isLoading ? 'loadingBlur height-100 pagemini' : 'pagemini')} initial="initial" animate="animate" exit={{ opacity: 0 }}>

@@ -47,6 +47,7 @@ const Cart = (props) => {
                     icon: 'success',
                     title: 'Your work has been saved',
                     showConfirmButton: false,
+                    timer: 1000,
                     confirmButtonText: 'Close',
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
@@ -117,7 +118,7 @@ const Cart = (props) => {
                        </div>
                     </div>
                 </Modal.Body>
-        </Modal>
+            </Modal>
         </Pagemini>
     )
 }

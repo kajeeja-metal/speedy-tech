@@ -8,14 +8,19 @@ import DealItemOrder from "@/components/dealItemorder";
 import style from "@/styles/DealItemOrder.module.scss"
 import { Modal } from 'react-bootstrap';
 import { getHistory } from "@/services/getServices";
+import { motion, AnimatePresence } from "framer-motion"
+import { useAuth } from '@/context/useAuth'
 import moment from 'moment';
+import WaitOrder from "@/components/waitorder";
 const Order = (props) => {
     const router = useRouter()
     const { locale } = router
     const t = locale === "en" ? en : th
     const [showConfirm,setShowConfirm] = useState(false)
     const [history,setHistory] = useState([])
+    const dataContext = useAuth()
     const [total,setTotal] = useState(0)
+    const [isDetail, setDetail] = useState(false)
     const loadHistory = async () => {
         let historys = await getHistory()
         const sumTotal = 0
@@ -30,7 +35,7 @@ const Order = (props) => {
         setShowConfirm(true)
     }
     return (
-        <Pagemini  title={'รายการที่สั่งทั้งหมด'}>
+        <Pagemini  title={'รายการที่สั่งทั้งหมด'} onBack={true}>
             {/* <div className={style.number_bill}>
                 หมายเลขบิล: <span>{history[0]?.order_booking}</span>
             </div> */}
@@ -69,16 +74,17 @@ const Order = (props) => {
                <div className={style.group_vat}>
                 <div className={style.total_number_bill}>
                         <div className={style.text_total}>รวมค่าอาหารทั้งหมด</div>
-                        <div className={style.text_total}>฿ {parseFloat(history.sub_total).toFixed(2).toLocaleString()}</div>
+                        <div className={style.text_total}>฿ {parseFloat(history.sub_total).toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})}</div>
                     </div>
-                    <div className={style.total_number_bill}>
-                        <div className={style.text_total}>VAT {history.vat_rate}%</div>
-                        <div className={style.text_total}>฿ {parseFloat(history.vat_amount).toFixed(2).toLocaleString()}</div>
-                    </div>
-                    <div className={style.total_number_bill}>
+                    {dataContext?.user?.configs?.is_service_charge_enable && <div className={style.total_number_bill}>
                         <div className={style.text_total}>Service charge {history.service_charge_rate}%</div>
-                        <div className={style.text_total}>฿ {parseFloat(history.service_charge_amount).toFixed(2).toLocaleString()}</div>
-                    </div>
+                        <div className={style.text_total}>฿ {parseFloat(history.service_charge_amount).toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})}</div>
+                    </div>}
+                    {dataContext?.user?.configs?.is_vat_enable && <div className={style.total_number_bill}>
+                        <div className={style.text_total}>VAT {history.vat_rate}% {!dataContext?.user?.configs?.is_vat_exclude ? t.excluding : t.including}</div>
+                        <div className={style.text_total}>฿ {parseFloat(history.vat_amount).toLocaleString(undefined,{'minimumFractionDigits':2,'maximumFractionDigits':2})}</div>
+                    </div>}
+                    
                </div>
                <div className={style.group_total}>
                 <div className={style.titletotal}>รวมทั้งหมด</div>
@@ -99,22 +105,41 @@ const Order = (props) => {
                     <div className={style.btn_addtocart} onClick={()=> onClickAddOrder()}>สรุปยอดเงิน</div>
                 </div>
            </div> */}
-           <Modal key={1} show={showConfirm} onHide={()=> setShowConfirm(false)} size="sm"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered>
-                <Modal.Body>
-                    <div className='group-modal'>
-                       <div className="title_name_modal">
-                            <div className="title_text">เรียกพนักงาน</div>
-                            <p className="subtitle_text">คุณต้องการเรียกพนักงานเพื่อชำระเงินใช่หรือไม่</p>
-                       </div>
-                       <div className="group_btn_confirm">
-                            <div className="btn btn_false" onClick={() => {setShowConfirm(false)}}>ยกเลิก</div>
-                            <div className="btn btn_true" onClick={() => {router.push('/')}}>ยืนยัน</div>
-                       </div>
-                    </div>
-                </Modal.Body>
-        </Modal>
+           <AnimatePresence initial={false}>
+                {isDetail &&
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="modelUp"
+                >
+                    <WaitOrder />
+                </motion.div>
+                }
+            </AnimatePresence>
+            <Modal key={1} show={showConfirm} onHide={()=> setShowConfirm(false)} size="sm"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+                    <Modal.Body>
+                        <div className='group-modal'>
+                        <div className="title_name_modal">
+                                <div className="title_text">เรียกพนักงาน</div>
+                                <p className="subtitle_text">คุณต้องการเรียกพนักงานเพื่อชำระเงินใช่หรือไม่</p>
+                        </div>
+                        <div className="group_btn_confirm">
+                                <div className="btn btn_false" onClick={() => {setShowConfirm(false)}}>ยกเลิก</div>
+                                <div className="btn btn_true" onClick={() => {
+                                    setShowConfirm(false)
+                                    setDetail(true)
+                                    setTimeout(() => {
+                                        setDetail(false)
+                                        router.push('/checkout')
+                                    }, 2000);
+                                }}>ยืนยัน</div>
+                        </div>
+                        </div>
+                    </Modal.Body>
+            </Modal>
         </Pagemini>
     )
 }

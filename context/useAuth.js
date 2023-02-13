@@ -4,12 +4,9 @@ import { getMe,getScanqr } from '@/services/auth'
 import {getProducts} from "@/services/getServices"
 import Router ,{ useRouter } from 'next/router';
 import { connect } from 'react-redux';
-import io from 'socket.io-client';
-const socket = io()
 const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
     const router = useRouter()
-    const [isConnected, setIsConnected] = useState(socket.connected);
     const [lastPong, setLastPong] = useState(null);
     const [user, setUser] = useState(null)
     const [products, setProducts] = useState([])
@@ -34,25 +31,6 @@ export const AuthProvider = ({ children }) => {
     const [heightCateory,setHeightCateory ] = useState(0)
     const [dataSearch,setDataSearch ] = useState([])
     const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        socket.on('connect', () => {
-          setIsConnected(true);
-        });
-    
-        socket.on('disconnect', () => {
-          setIsConnected(false);
-        });
-    
-        socket.on('pong', () => {
-          setLastPong(new Date().toISOString());
-        });
-    
-        return () => {
-          socket.off('connect');
-          socket.off('disconnect');
-          socket.off('pong');
-        };
-      }, []);
     useEffect(() => {
         async function loadUserFromCookies() {
             const token = Cookies.get('token')
@@ -130,7 +108,6 @@ export const AuthProvider = ({ children }) => {
     }, [emp])
     
     const scrolLWithUseRef = (e,i) => {
-        
         setHeightCateory(e)
         setUpdateCount(e)
         i.defaultPrevented

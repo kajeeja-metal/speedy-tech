@@ -140,7 +140,7 @@ const Header = (props) => {
                                         return <Link className={style.navItem + ` ${data.heightCateory == i && " active"}`} to={`sec_${i}`} spy={true}
                                         smooth={true}
                                         hashSpy={true}
-                                        offset={-80}
+                                        offset={-120}
                                         duration={50}
                                         isDynamic={true}
                                         ignoreCancelEvents={false}

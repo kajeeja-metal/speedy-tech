@@ -75,6 +75,8 @@ export default {
     "howtochange":"RETURN & EXCHANGE",
     "Q&A":"QUESTION & ANWSER",
     "date":"Date : ",
-    "additional" : "Specify text"
+    "additional" : "Specify text",
+    "excluding" : "(exc.)",
+    "including" : "(inc.)"
   
   } 
