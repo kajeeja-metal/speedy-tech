@@ -77,6 +77,6 @@ export default {
     "date":"Date : ",
     "additional" : "Specify text",
     "excluding" : "(exc.)",
-    "including" : "(inc.)"
-  
+    "including" : "(inc.)",
+    "Selectatleast" : "Select at least {{val}} item"
   } 

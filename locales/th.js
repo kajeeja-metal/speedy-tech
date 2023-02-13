@@ -74,5 +74,6 @@ export default {
     "date":"วันที่ : ",
     "additional" : "ระบุข้อความ",
     "excluding" : "(ไม่รวมภาษีมูลค่าเพิ่ม)",
-    "including" : "(รวมภาษีมูลค่าเพิ่ม)"
+    "including" : "(รวมภาษีมูลค่าเพิ่ม)",
+    "Selectatleast" : "Select at least {{val}} item"
   }

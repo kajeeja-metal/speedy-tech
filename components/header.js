@@ -95,14 +95,14 @@ const Header = (props) => {
                     </div>
                     <div className={style.active_all_menu}>
                         <div className={style.lang_change}>
-                            <img src="/images/ring-bell.png" width={20} onClick={() => {data.setEmp(true)}}></img>
+                            <img src="/images/Ring.svg" width={25} onClick={() => {data.setEmp(true)}}></img>
                         </div>
                         <div className={style.lang_change}>
-                        <img src="/images/Vector.png" width={20}  onClick={() => {router.push('/order')}}></img>
+                        <img src="/images/History.svg" width={25}  onClick={() => {router.push('/order')}}></img>
                         </div>
                         {
                             router.locale == "th" ? 
-                            <div className={style.lang_change} onClick={() => handleRoute("en")}>
+                            <div className={style.lang_change} style={{position : "relative" , top : "2px"}} onClick={() => handleRoute("en")}>
                                 <img src="/images/thai.png" width={20}></img>
                             </div> 
                             : 

@@ -26,7 +26,7 @@ return (
                                 opt.option.name[locale]
                             }
                             {
-                                dealItem.options.length != i+1 && ","
+                                dealItem.options.length != i+1 && " ,"
                             }
                             </>
                         )
